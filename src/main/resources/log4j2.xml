@@ -21,6 +21,7 @@
 
   <loggers>
     <root level="debug">
+      <appender-ref ref="Console" level="debug"/>
       <appender-ref ref="FILE_DEBUG" level="debug"/>
       <appender-ref ref="FILE_INFO" level="info"/>
       <appender-ref ref="FILE_WARN" level="warn"/>
