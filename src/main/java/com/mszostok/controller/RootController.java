@@ -15,13 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class RootController {
 
-    private static final String HOME_PAGE = "index";
-
+    private static final String HOME_PAGE_TEMPLATE = "layouts/siteTemplate";
+    private static final String HOMEPAGE_CONTENT = "site/homepage";
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(){
 
-        ModelAndView modelAndView = new ModelAndView(HOME_PAGE);
+        ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
+        modelAndView.addObject("pageContentPath", HOMEPAGE_CONTENT);
 
         return modelAndView;
     }

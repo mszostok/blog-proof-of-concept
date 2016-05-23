@@ -1,0 +1,15 @@
+{
+    "name": "Blog",
+    "description": "Blog Site Proof Of Conceptcd s",
+    "version": "0.0.1",
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "~0.4.5",
+        "grunt-browser-sync": "^2.2.0",
+        "grunt-contrib-less": "~0.12.0",
+        "grunt-contrib-watch": "~0.6.1"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    }
+}
