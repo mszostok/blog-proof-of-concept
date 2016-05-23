@@ -35,3 +35,6 @@ overridedb.*
 *.jar
 .DS_Store
 .factorypath
+
+# Dependency directories
+node_modules
