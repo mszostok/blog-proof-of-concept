@@ -22,11 +22,17 @@ public class PostServiceImpl implements PostService {
     @Autowired
     PostRepository postRepository;
 
+    private TeaserPost convertToTeaserPost(Post post){
+        TeaserPost teaserPost = new TeaserPost(post);
+
+        return teaserPost;
+    }
+
     @Override
-    public Page<Post> getPostsForPage(int pageNumber) {
+    public Page<TeaserPost> getPostsForPage(int pageNumber) {
         PageRequest request = new PageRequest(pageNumber-1, PAGE_SIZE, Sort.Direction.DESC, "postDate");
 
-        return postRepository.findByIsDeletedFalse( request );
+        return postRepository.findByIsDeletedFalse( request ).map(this::convertToTeaserPost);
     }
 
 

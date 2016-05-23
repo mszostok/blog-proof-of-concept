@@ -1,7 +1,7 @@
 package com.mszostok.service;
 
 
-import com.mszostok.domain.Post;
+import com.mszostok.model.TeaserPost;
 import org.springframework.data.domain.Page;
 
 
@@ -10,5 +10,5 @@ import org.springframework.data.domain.Page;
  */
 public interface PostService {
 
-    Page<Post> getPostsForPage(int pageNumber);
+    Page<TeaserPost> getPostsForPage(int pageNumber);
 }
