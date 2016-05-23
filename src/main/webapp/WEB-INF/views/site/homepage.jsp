@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+<c:url var="lastUrl" value="/pages/${page.totalPages == 0 ? 1 : page.totalPages}"/>
+<c:url var="prevUrl" value="/pages/${page.number }"/>
+<c:url var="nextUrl" value="/pages/${page.number + 2}"/> <%--Add two due to page.number start with 0 not 1. --%>
+<c:set var="posts" scope="page" value="${page.content}"/>
 
 <c:forEach var="post" items="${posts}">
     <div class="post-preview">
@@ -21,7 +25,15 @@
 
 <!-- Pager -->
 <ul class="pager">
-    <li class="next">
-        <a href="#">Older Posts &rarr;</a>
+    <li class="next" style="display: ${page.totalPages ge page.number+2 ? '' : 'none'}">
+        <a href="${lastUrl}">Latest Post<i class="fa fa-angle-double-right " aria-hidden="true"></i>
+        </a>
+        <a href="${nextUrl}">Older Posts <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </a>
+    </li>
+    <li class="previous" style="display: ${page.number gt 0 ? '' : 'none'}">
+        <a href="${prevUrl}"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Newer Posts
+        </a>
     </li>
 </ul>
