@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "user_roles", schema = "public")
-public class UserRoles {
+public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_roles_id_user_role_seq")
@@ -22,10 +22,10 @@ public class UserRoles {
     @JoinColumn(name = "users_id_user")
     private User user;
 
-    public UserRoles() {
+    public UserRole() {
     }
 
-    public UserRoles(User client, String role) {
+    public UserRole(User client, String role) {
         this.user = client;
         this.role = role;
     }
@@ -60,12 +60,12 @@ public class UserRoles {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserRoles userRoles = (UserRoles) o;
+        UserRole userRole = (UserRole) o;
 
-        if (idUserRoles != null ? !idUserRoles.equals(userRoles.idUserRoles) : userRoles.idUserRoles != null)
+        if (idUserRoles != null ? !idUserRoles.equals(userRole.idUserRoles) : userRole.idUserRoles != null)
             return false;
-        if (role != null ? !role.equals(userRoles.role) : userRoles.role != null) return false;
-        return user != null ? user.equals(userRoles.user) : userRoles.user == null;
+        if (role != null ? !role.equals(userRole.role) : userRole.role != null) return false;
+        return user != null ? user.equals(userRole.user) : userRole.user == null;
 
     }
 
@@ -79,7 +79,7 @@ public class UserRoles {
 
     @Override
     public String toString() {
-        return "UserRoles{" +
+        return "UserRole{" +
                 "user=" + user +
                 ", idUserRoles=" + idUserRoles +
                 ", role='" + role + '\'' +

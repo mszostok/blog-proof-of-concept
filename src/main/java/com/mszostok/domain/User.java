@@ -28,7 +28,7 @@ public class User {
     private String password;
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="user")
-    private List<UserRoles> rolesList;
+    private List<UserRole> rolesList;
 
     @OneToMany(cascade=CascadeType.ALL, mappedBy="user")
     private List<Post> postList;
@@ -76,11 +76,11 @@ public class User {
         this.password = password;
     }
 
-    public List<UserRoles> getRolesList() {
+    public List<UserRole> getRolesList() {
         return rolesList;
     }
 
-    public void setRolesList(List<UserRoles> rolesList) {
+    public void setRolesList(List<UserRole> rolesList) {
         this.rolesList = rolesList;
     }
 
