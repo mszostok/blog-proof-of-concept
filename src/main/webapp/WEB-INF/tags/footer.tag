@@ -43,6 +43,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="<c:url value='/static/js/clean-blog.min.js' />"></script>
+<!--  TinyMCE -->
+<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+<!--  own scrpit -->
+<script src='<c:url value='/static/js/script.js' />'></script>
 
 </body>
 

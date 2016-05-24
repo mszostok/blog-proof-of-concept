@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<div class="alert alert-info alert-block fade in " style="${empty message ? 'display: none;' : ''}">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    ${message}
+</div>
 
 <c:url var="lastUrl" value="/pages/${page.totalPages == 0 ? 1 : page.totalPages}"/>
 <c:url var="prevUrl" value="/pages/${page.number }"/>

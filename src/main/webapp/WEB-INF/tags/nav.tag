@@ -21,14 +21,9 @@
                     <a href="<c:url value="/"/>" >Home</a>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                    <a href="/post/add-form">Add new post</a>
                 </li>
-                <li>
-                    <a href="#">Sample Post</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
