@@ -18,6 +18,9 @@ public abstract class PostWrapper {
 
     private User user;
 
+    public PostWrapper() {
+    }
+
     public PostWrapper(String content, Integer idPost, Date postDate, String title, User user) {
         this.content = content;
         this.idPost = idPost;
