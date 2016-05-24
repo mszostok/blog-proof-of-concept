@@ -22,7 +22,7 @@ CREATE TABLE Posts
   post_date TIMESTAMP NOT NULL,
   post_title VARCHAR(255) NOT NULL,
   post_content TEXT NOT NULL,
-  users_id_user INTEGER NOT NULL,
+  users_id_user INTEGER ,
   is_deleted BOOLEAN DEFAULT FALSE
 ) ;
 CREATE UNIQUE INDEX Posts__IDX ON Posts
