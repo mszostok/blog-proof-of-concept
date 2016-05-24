@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 
 /**
  * @author mszostok
@@ -12,4 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
     Page<Post> findByIsDeletedFalse(Pageable pageable);
+    List<Post> findByIsDeletedFalse();
+
+    Post findByIdPost(Integer id);
 }
