@@ -23,14 +23,6 @@ public abstract class PostWrapper {
     public PostWrapper() {
     }
 
-    public PostWrapper(String content, Integer idPost, Date postDate, String title, String userFullName) {
-        this.content = content;
-        this.idPost = idPost;
-        this.postDate = postDate;
-        this.title = title;
-        this.userFullName = userFullName;
-    }
-
     public String getUserFullName() {
         return userFullName;
     }

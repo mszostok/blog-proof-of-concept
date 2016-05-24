@@ -1,6 +1,7 @@
 package com.mszostok.model;
 
 import com.mszostok.domain.Post;
+import com.mszostok.domain.User;
 
 import java.util.Date;
 
@@ -12,10 +13,17 @@ import java.util.Date;
 public class FullPost extends  PostWrapper {
 
     public FullPost(Post post) {
-        super(post.getContent(),
-                post.getIdPost(),
-                new Date(post.getPostDate().getTime()),
-                post.getTitle(),
-                post.getUser().getFirstName().concat(" ").concat(post.getUser().getLastName()));
+        content = post.getContent();
+        idPost = post.getIdPost();
+        postDate = new Date(post.getPostDate().getTime());
+        title = post.getTitle();
+
+        User user = post.getUser();
+        if(user == null) {
+            userFullName = "Anonymous";
+        } else {
+            userFullName = post.getUser().getFirstName().concat(" ").concat(post.getUser().getLastName());
+        }
+
     }
 }
