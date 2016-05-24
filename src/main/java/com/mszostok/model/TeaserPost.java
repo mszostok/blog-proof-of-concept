@@ -3,6 +3,7 @@ package com.mszostok.model;
 import com.mszostok.domain.Post;
 import com.mszostok.domain.User;
 import com.mszostok.util.SlugGenerator;
+import org.jsoup.Jsoup;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -19,7 +20,8 @@ public class TeaserPost extends PostWrapper {
     private String url;
 
     public TeaserPost(Post post) {
-        content = post.getContent().substring(0, Math.min(post.getContent().length(),TeaserContentSize)).concat("...");
+        String html = post.getContent().substring(0, Math.min(post.getContent().length(),TeaserContentSize)).concat("...");
+        content = Jsoup.parse(html).text();
         idPost = post.getIdPost();
         postDate = new Date(post.getPostDate().getTime());
         title = post.getTitle();

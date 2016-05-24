@@ -6,6 +6,8 @@ import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
 import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,7 +62,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public void save(PostCreateForm form) {
         Post post = new Post();
-        post.setContent(form.getContent());
+        /** Use the jsoup HTML Cleaner with a configuration specified by a Whitelist to avoid XSS */
+        String safeContent = Jsoup.clean(form.getContent(), Whitelist.basicWithImages());
+
+        post.setContent(safeContent);
         post.setPostDate(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
         post.setTitle(form.getTitle());
 
