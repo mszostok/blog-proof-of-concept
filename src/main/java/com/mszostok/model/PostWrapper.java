@@ -18,25 +18,25 @@ public abstract class PostWrapper {
 
     private String content;
 
-    private User user;
+    private String userFullName;
 
     public PostWrapper() {
     }
 
-    public PostWrapper(String content, Integer idPost, Date postDate, String title, User user) {
+    public PostWrapper(String content, Integer idPost, Date postDate, String title, String userFullName) {
         this.content = content;
         this.idPost = idPost;
         this.postDate = postDate;
         this.title = title;
-        this.user = user;
+        this.userFullName = userFullName;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserFullName() {
+        return userFullName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
     }
 
     public String getContent() {

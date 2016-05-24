@@ -16,6 +16,6 @@ public class FullPost extends  PostWrapper {
                 post.getIdPost(),
                 new Date(post.getPostDate().getTime()),
                 post.getTitle(),
-                post.getUser());
+                post.getUser().getFirstName().concat(" ").concat(post.getUser().getLastName()));
     }
 }

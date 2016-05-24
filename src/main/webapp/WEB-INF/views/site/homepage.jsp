@@ -17,7 +17,7 @@
                     ${post.content}
             </h3>
         </a>
-        <p class="post-meta">Posted by <a href="#">${post.user.firstName}</a> at ${post.postDate}</p>
+        <p class="post-meta">Posted by ${post.userFullName} at ${post.postDate}</p>
     </div>
     <hr>
 </c:forEach>
