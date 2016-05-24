@@ -9,7 +9,7 @@
 
 <c:forEach var="post" items="${posts}">
     <div class="post-preview">
-        <a href="post.html">
+        <a href="<c:url value='/post/${post.idPost}/${post.url}'/>">
             <h2 class="post-title">
                     ${post.title}
             </h2>
