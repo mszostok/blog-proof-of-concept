@@ -5,6 +5,8 @@ import com.mszostok.domain.User;
 import java.util.Date;
 
 /**
+ * Base for post wrapper model.
+ *
  * @author mszostok
  */
 public abstract class PostWrapper {

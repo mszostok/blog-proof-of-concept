@@ -1,6 +1,8 @@
 package com.mszostok.configuration;
 
 /**
+ * Hibernate configuration with properties stored in application.properties file
+ *
  * @author mszostok
  */
 

@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
+ * Teaser post which provide enough information about post to display at main blog page.
+ *
  * @author mszostok
  */
 public class TeaserPost extends PostWrapper {

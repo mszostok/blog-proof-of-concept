@@ -5,6 +5,8 @@ import com.mszostok.domain.Post;
 import java.util.Date;
 
 /**
+ * Post model which provide whole information need to print in details post view.
+ *
  * @author mszostok
  */
 public class FullPost extends  PostWrapper {

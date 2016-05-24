@@ -16,7 +16,7 @@ import java.util.Optional;
 
 
 /**
- * Root Controller
+ * Root Controller to handle request mapping for the main blog page (home)
  *
  * @author mszostok
  */
@@ -46,14 +46,14 @@ public class RootController {
     @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
     public ModelAndView getPostPage(@PathVariable Optional<Integer> pageNumber) {
 
-        LOGGER.info("Get posts for page: " + pageNumber.orElse(1));
-        Page<TeaserPost> page = postService.getPostsForPage(pageNumber.orElse(1));
-
         LOGGER.info("Return view: ".concat(HOME_PAGE_CONTENT));
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
         modelAndView.addObject("pageContentPath", HOME_PAGE_CONTENT);
 
+        LOGGER.info("Get posts for page: " + pageNumber.orElse(1));
+        Page<TeaserPost> page = postService.getPostsForPage(pageNumber.orElse(1));
         modelAndView.addObject("page", page);
+
         return  modelAndView;
     }
 

@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 /**
+ * Post controller
+ *
  * @author mszostok
  */
 @Controller

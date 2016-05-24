@@ -4,7 +4,6 @@ import com.mszostok.domain.Post;
 import com.mszostok.model.FullPost;
 import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
-import com.mszostok.util.SlugGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +20,9 @@ import java.util.Optional;
 @Service("postService")
 @Transactional
 public class PostServiceImpl implements PostService {
+    /**
+     * Max number of post per page
+     */
     private static final int PAGE_SIZE = 2;
 
     @Autowired
@@ -42,9 +44,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<TeaserPost> getPostsForPage(int pageNumber) {
-        PageRequest request = new PageRequest(pageNumber-1, PAGE_SIZE, Sort.Direction.DESC, "postDate");
+        /**
+         * pageNumber -1 due to page start with 0, but first page number for user will be 1,
+         * we sorting by post date with descending direction to get proper order at blog page.
+         */
+        PageRequest pageRequest = new PageRequest(pageNumber-1, PAGE_SIZE, Sort.Direction.DESC, "postDate");
 
-        return postRepository.findByIsDeletedFalse( request ).map(this::convertToTeaserPost);
+        return postRepository.findByIsDeletedFalse( pageRequest ).map(this::convertToTeaserPost);
     }
 
     @Override

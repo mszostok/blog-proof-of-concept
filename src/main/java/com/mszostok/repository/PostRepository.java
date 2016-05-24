@@ -14,7 +14,6 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
     Page<Post> findByIsDeletedFalse(Pageable pageable);
-    List<Post> findByIsDeletedFalse();
 
     Post findByIdPost(Integer id);
 }
