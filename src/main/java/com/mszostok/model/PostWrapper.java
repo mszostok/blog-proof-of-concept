@@ -10,15 +10,15 @@ import java.util.Date;
  * @author mszostok
  */
 public abstract class PostWrapper {
-    private Integer idPost;
+    protected Integer idPost;
 
-    private Date postDate;
+    protected Date postDate;
 
-    private String title;
+    protected String title;
 
-    private String content;
+    protected String content;
 
-    private String userFullName;
+    protected String userFullName;
 
     public PostWrapper() {
     }

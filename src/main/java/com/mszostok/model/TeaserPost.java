@@ -19,11 +19,17 @@ public class TeaserPost extends PostWrapper {
     private String url;
 
     public TeaserPost(Post post) {
-        super(post.getContent().substring(0, TeaserContentSize).concat("..."),
-                post.getIdPost(),
-                new Date(post.getPostDate().getTime()),
-                post.getTitle(),
-                post.getUser().getFirstName().concat(" ").concat(post.getUser().getLastName()));
+        content = post.getContent().substring(0, Math.min(post.getContent().length(),TeaserContentSize)).concat("...");
+        idPost = post.getIdPost();
+        postDate = new Date(post.getPostDate().getTime());
+        title = post.getTitle();
+
+        User user = post.getUser();
+        if(user == null) {
+            userFullName = "Anonymous";
+        } else {
+            userFullName = post.getUser().getFirstName().concat(" ").concat(post.getUser().getLastName());
+        }
 
         url = SlugGenerator.toSlug(post.getTitle());
     }
