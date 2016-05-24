@@ -3,6 +3,7 @@ package com.mszostok.service;
 import com.mszostok.domain.Post;
 import com.mszostok.exception.PostException;
 import com.mszostok.model.FullPost;
+import com.mszostok.model.PostCreateForm;
 import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Calendar;
 
 
 /**
@@ -52,5 +55,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public FullPost getById(Integer postId) {
         return convertToFullPost(postRepository.findByIdPost(postId).orElseThrow(() -> new PostException("Could not find post.")));
+    }
+
+    @Override
+    public void save(PostCreateForm form) {
+        Post post = new Post();
+        post.setContent(form.getContent());
+        post.setPostDate(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+        post.setTitle(form.getTitle());
+
+        /** Anonymous post */
+        post.setUser(null);
+
+        postRepository.save(post);
     }
 }
