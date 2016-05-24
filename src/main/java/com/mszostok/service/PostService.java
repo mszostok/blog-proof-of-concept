@@ -15,5 +15,5 @@ public interface PostService {
 
     Page<TeaserPost> getPostsForPage(int pageNumber);
 
-    FullPost getById(Optional<Integer> postId);
+   FullPost getById(Integer postId);
 }

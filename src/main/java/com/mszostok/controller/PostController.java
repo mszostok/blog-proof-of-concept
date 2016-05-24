@@ -1,5 +1,6 @@
 package com.mszostok.controller;
 
+import com.mszostok.exception.PostException;
 import com.mszostok.model.FullPost;
 import com.mszostok.service.PostService;
 import org.apache.log4j.LogManager;
@@ -31,16 +32,15 @@ public class PostController {
 
     @RequestMapping(value = "/{postId}/{postTitle}",method = RequestMethod.GET)
     public ModelAndView index(@PathVariable Optional<Integer> postId,
-                              @PathVariable Optional<String> postTitle){
-
-        LOGGER.info("Return view: ".concat(HOME_PAGE_CONTENT));
+                              @PathVariable Optional<String> postTitle) throws PostException {
 
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
         modelAndView.addObject("pageContentPath", HOME_PAGE_CONTENT);
 
-        FullPost post = postService.getById(postId);
+        FullPost post = postService.getById(postId.orElseThrow(() -> new PostException("Wrong post id.")));
         modelAndView.addObject("post", post);
 
+        LOGGER.info("Return view: ".concat(HOME_PAGE_CONTENT));
         return modelAndView;
     }
 }
