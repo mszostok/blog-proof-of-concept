@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="user" items="${users}">
-                <c:if test="${user.idUser != loggedUserId }" >
+
                     <c:choose>
                         <c:when test="${user.active == true }">
                             <c:set var="btnStyle" scope="session" value="btn-danger"/>
@@ -43,13 +43,13 @@
                         <td>
                             <form role="form" action="/user/${btnUrlPrefix}/${user.idUser}" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn btn-block btn-xs ${btnStyle}" type="submit">
-                                     ${btnName}
+                                <button class="btn btn-block btn-xs ${btnStyle}" type="submit"
+                                ${user.idUser eq loggedUserId ? "data-toggle='tooltip' title='Cannot modify your self' data-placement='bottom' disabled='true'" : ''}>
+                                        ${btnName}
                                 </button>
                             </form>
                         </td>
                     </tr>
-                </c:if>
                 </c:forEach>
                 </tbody>
             </table>

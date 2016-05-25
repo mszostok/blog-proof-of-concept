@@ -23,7 +23,7 @@
                              active="${baseURL}"/>
             <m:listGroupItem icon="fa-home" name="Home page" path="/"
                              active="${baseURL}"/>
-            <m:listGroupItem icon="fa-users" name="Users" path="#"
+            <m:listGroupItem icon="fa-users" name="Users" path="/admin/manage-users"
                              active="${baseURL}"/>
             <m:listGroupItem icon="fa-sticky-note" name="Posts" path="#"
                              active="${baseURL}"/>
