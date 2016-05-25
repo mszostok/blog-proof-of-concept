@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/post/**").permitAll()
                 .antMatchers("/pages/**").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated() //All remaining URLs require that the user be successfully authenticated
                 .and()
                 .formLogin()
