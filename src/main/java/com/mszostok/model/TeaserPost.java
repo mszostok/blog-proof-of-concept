@@ -30,7 +30,7 @@ public class TeaserPost extends PostWrapper {
         if(user == null) {
             userFullName = "Anonymous";
         } else {
-            userFullName = post.getUser().getFirstName().concat(" ").concat(post.getUser().getLastName());
+            userFullName = user.getFirstName().concat(" ").concat(user.getLastName());
         }
 
         url = SlugGenerator.toSlug(post.getTitle());

@@ -1,6 +1,5 @@
 package com.mszostok.model;
 
-import com.mszostok.domain.User;
 
 import java.util.Date;
 
