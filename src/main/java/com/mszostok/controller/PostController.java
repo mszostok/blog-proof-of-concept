@@ -9,6 +9,7 @@ import com.mszostok.service.PostService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -91,5 +93,23 @@ public class PostController {
         }
         LOGGER.info("Return view: {} ", ADD_POST);
         return HOME_PAGE_TEMPLATE;
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String deletePost(@PathVariable int id, HttpServletRequest request) {
+
+        postService.deactivateById(id);
+
+        return "redirect:" + request.getHeader("Referer");
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/restore/{id}", method = RequestMethod.POST)
+    public String restorePost(@PathVariable int id, HttpServletRequest request) {
+
+        postService.restoreById(id);
+
+        return "redirect:" + request.getHeader("Referer");
     }
 }
