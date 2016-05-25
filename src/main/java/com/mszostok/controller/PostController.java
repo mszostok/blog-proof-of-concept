@@ -50,7 +50,7 @@ public class PostController {
             user = ((CurrentUser) context.getPrincipal()).getUser();
         }
 
-        return Optional.of(user);
+        return Optional.ofNullable(user);
     }
 
     @RequestMapping(method = RequestMethod.POST)
