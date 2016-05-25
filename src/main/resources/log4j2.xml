@@ -2,19 +2,19 @@
 <configuration status="WARN">
   <appenders>
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+      <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
 
-    <File name="FILE_DEBUG" fileName="logs/swagger-converter-debug.log">
+    <File name="FILE_DEBUG" fileName="logs/blog-debug.log">
       <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </File>
-    <File name="FILE_INFO" fileName="logs/swagger-converter-info.log">
+    <File name="FILE_INFO" fileName="logs/blog-info.log">
       <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </File>
-    <File name="FILE_WARN" fileName="logs/swagger-converter-warn.log">
+    <File name="FILE_WARN" fileName="logs/blog-warn.log">
       <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </File>
-    <File name="FILE_ERROR" fileName="logs/swagger-converter-error.log">
+    <File name="FILE_ERROR" fileName="logs/blog-error.log">
       <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </File>
   </appenders>

@@ -2,8 +2,8 @@ package com.mszostok.controller;
 
 import com.mszostok.model.TeaserPost;
 import com.mszostok.service.PostService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -37,7 +37,7 @@ public class RootController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(){
 
-        LOGGER.info("Forward view to: ".concat(INDEX_FORWARD));
+        LOGGER.info("Forward view to: {} ", INDEX_FORWARD);
 
         ModelAndView modelAndView = new ModelAndView(INDEX_FORWARD);
         return modelAndView;
@@ -46,11 +46,11 @@ public class RootController {
     @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
     public ModelAndView getPostPage(@PathVariable Optional<Integer> pageNumber) {
 
-        LOGGER.info("Return view: ".concat(HOME_PAGE_CONTENT));
+        LOGGER.info("Return view: {} ", HOME_PAGE_CONTENT);
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
         modelAndView.addObject("pageContentPath", HOME_PAGE_CONTENT);
 
-        LOGGER.info("Get posts for page: " + pageNumber.orElse(1));
+        LOGGER.info("Get posts for page: {} ", pageNumber.orElse(1));
         Page<TeaserPost> page = postService.getPostsForPage(pageNumber.orElse(1));
         modelAndView.addObject("page", page);
 

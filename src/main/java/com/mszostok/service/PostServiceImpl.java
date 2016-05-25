@@ -1,11 +1,14 @@
 package com.mszostok.service;
 
 import com.mszostok.domain.Post;
+import com.mszostok.domain.User;
 import com.mszostok.exception.PostException;
 import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
 import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 
 /**
@@ -24,6 +28,8 @@ import java.util.Calendar;
 @Service("postService")
 @Transactional
 public class PostServiceImpl implements PostService {
+
+    private static final Logger LOGGER = LogManager.getLogger(PostServiceImpl.class);
     /**
      * Max number of post per page
      */
@@ -60,9 +66,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void save(PostCreateForm form) {
+    public void save(PostCreateForm form, Optional<User> user) {
         Post post = new Post();
         /** Use the jsoup HTML Cleaner with a configuration specified by a Whitelist to avoid XSS */
+        LOGGER.info("Clean form content to avoid XSS.");
         String safeContent = Jsoup.clean(form.getContent(), Whitelist.basicWithImages());
 
         post.setContent(safeContent);
@@ -70,8 +77,9 @@ public class PostServiceImpl implements PostService {
         post.setTitle(form.getTitle());
 
         /** Anonymous post */
-        post.setUser(null);
+        post.setUser(user.orElse(null));
 
+        LOGGER.debug("Save post {} to database.", post );
         postRepository.save(post);
     }
 }

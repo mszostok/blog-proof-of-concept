@@ -1,8 +1,8 @@
 package com.mszostok.controller;
 
 import com.mszostok.exception.PostException;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler( PostException.class)
     public ModelAndView exception(HttpServletRequest req, PostException ex) {
-        LOGGER.error("Request: " + req.getRequestURL() + " raised " + ex);
+        LOGGER.error("Request: {} raised {}", req.getRequestURL(), ex);
 
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
         modelAndView.addObject("pageContentPath", DEFAULT_ERROR_VIEW);
@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception ex) {
-        LOGGER.error("Request: " + req.getRequestURL() + " raised " + ex);
+        LOGGER.error("Request: {} raised {}", req.getRequestURL(), ex);
 
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
 
