@@ -25,7 +25,7 @@
                              active="${baseURL}"/>
             <m:listGroupItem icon="fa-users" name="Users" path="/admin/manage-users"
                              active="${baseURL}"/>
-            <m:listGroupItem icon="fa-sticky-note" name="Posts" path="#"
+            <m:listGroupItem icon="fa-sticky-note" name="Posts" path="/admin/manage-posts"
                              active="${baseURL}"/>
 
 

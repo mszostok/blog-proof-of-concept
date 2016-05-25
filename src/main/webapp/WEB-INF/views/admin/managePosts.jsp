@@ -2,53 +2,53 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <security:authentication property="principal.user.idUser" var="loggedUserId"/>
 
 <div class="row">
     <div class="col-xs-12">
 
-        <h1>Manage clients</h1>
+        <h1>Manage Posts</h1>
 
         <div class="table-responsive">
             <table id="data-table" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
+                    <th>Post Date</th>
+                    <th>Title</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="post" items="${users}">
+                <c:forEach var="post" items="${posts}">
 
                     <c:choose>
-                        <c:when test="${post.active eq true }">
+                        <c:when test="${post.isDeleted eq false }">
                             <c:set var="btnStyle" scope="session" value="btn-danger"/>
-                            <c:set var="btnName" scope="session" value="Deactivate"/>
-                            <c:set var="btnUrlPrefix" scope="session" value="deactivate"/>
+                            <c:set var="btnName" scope="session" value="Delete"/>
+                            <c:set var="btnUrlPrefix" scope="session" value="delete"/>
                         </c:when>
                         <c:otherwise>
                             <c:set var="btnStyle" scope="session" value="btn-success"/>
-                            <c:set var="btnName" scope="session" value="Activate"/>
-                            <c:set var="btnUrlPrefix" scope="session" value="activate"/>
+                            <c:set var="btnName" scope="session" value="Restore"/>
+                            <c:set var="btnUrlPrefix" scope="session" value="restore"/>
                         </c:otherwise>
                     </c:choose>
                     <tr>
-                        <td><c:out value="${post.firstName}"/></td>
-                        <td><c:out value="${post.lastName}"/></td>
-                        <td><c:out value="${post.eMail}"/></td>
+
+                        <td><fmt:formatDate type="both"
+                                            value="${post.postDate}" /></td>
+                        <td><c:out value="${post.title}"/></td>
 
                         <td>
-                            <form role="form" action="/user/${btnUrlPrefix}/${post.idUser}" method="post">
+                            <form role="form" action="/post/${btnUrlPrefix}/${post.idPost}" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn btn-block btn-xs ${btnStyle}" type="submit"
-                                ${post.idUser eq loggedUserId ? "data-toggle='tooltip' title='Cannot modify your self' data-placement='bottom' disabled='true'" : ''}>
+                                <button class="btn btn-block btn-xs ${btnStyle}" type="submit" >
                                         ${btnName}
                                 </button>
                             </form>
-                        </td>
+                            </td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -23,7 +23,7 @@
 
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="tile">
-                    <a href="#">
+                    <a href="/admin/manage-posts">
                         <div class="text-center"><i class="fa fa-3x  fa-sticky-note"></i>
                             <h3>Post<div class="small">Manage post</div></h3>
                         </div>
