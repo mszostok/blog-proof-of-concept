@@ -38,3 +38,5 @@ overridedb.*
 
 # Dependency directories
 node_modules
+
+/logs
