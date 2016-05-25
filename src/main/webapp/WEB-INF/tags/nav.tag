@@ -1,18 +1,8 @@
 <%@ tag %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="t" uri="http://www.springframework.org/tags" %>
 
-<style>
-    .navbar-login {
-        width: 305px;
-        padding: 10px;
-        padding-bottom: 0px;
-    }
-
-    .icon-size {
-        font-size: 87px;
-    }
-</style>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid nav-big-font">
@@ -45,7 +35,7 @@
                             <strong><security:authentication property="principal.user.firstName"/></strong>
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </a>
-                        <ul class="dropdown-menu list-group">
+                        <ul class="dropdown-menu list-group ">
                             <li>
                                 <div class="navbar-login">
                                     <div class="row">
@@ -75,9 +65,19 @@
                                     </div>
                                 </div>
                             </li>
+                            <security:authorize access="hasAuthority('ADMIN') and isAuthenticated()">
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li>
+                                    <a href="<t:url value='/admin' />" class="button" style="color: black !important;">
+                                        <i class="fa fa-table" aria-hidden="true"></i> Admin Dashboard
+                                    </a>
+                                </li>
+
+                            </security:authorize>
+
                             <li class="divider navbar-login-session-bg"></li>
                             <li>
-                                <form role="form" action="<c:url value='/logout' />" method="post">
+                                <form role="form" action="<t:url value='/logout' />" method="post">
 
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     <button type="submit">
