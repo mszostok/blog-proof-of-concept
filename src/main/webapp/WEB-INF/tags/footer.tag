@@ -45,8 +45,11 @@
 <script src="<c:url value='/static/js/clean-blog.min.js' />"></script>
 <!--  TinyMCE -->
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+<!-- Data table plugin -->
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
 <!--  own scrpit -->
 <script src='<c:url value='/static/js/script.js' />'></script>
+
 
 </body>
 
