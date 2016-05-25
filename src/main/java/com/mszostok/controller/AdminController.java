@@ -1,6 +1,8 @@
 package com.mszostok.controller;
 
+import com.mszostok.domain.Post;
 import com.mszostok.domain.User;
+import com.mszostok.service.PostService;
 import com.mszostok.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +28,13 @@ public class AdminController {
 
     private static final String MANAGE_USERS = "admin/manageUsers";
 
+    private static final String MANAGE_POSTS= "admin/managePosts";
+
     @Autowired
     UserService userService;
+
+    @Autowired
+    PostService postService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView homePanel(){
@@ -41,15 +48,25 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/manage-users", method = RequestMethod.GET)
-    public ModelAndView manageEmployeePage(){
+    public ModelAndView manageUserPage(){
 
         ModelAndView modelAndView = new ModelAndView(ADMIN_TEMPLATE);
         modelAndView.addObject("pageContentPath", MANAGE_USERS);
 
-        Collection<User> users = userService.getAllUsers();
-        modelAndView.addObject("users", users);
+        modelAndView.addObject("users", userService.getAllUsers());
 
         return modelAndView;
     }
 
+
+    @RequestMapping(value = "/manage-posts", method = RequestMethod.GET)
+    public ModelAndView managePostPage(){
+
+        ModelAndView modelAndView = new ModelAndView(ADMIN_TEMPLATE);
+        modelAndView.addObject("pageContentPath", MANAGE_POSTS);
+
+        modelAndView.addObject("posts", postService.getAllPosts());
+
+        return modelAndView;
+    }
 }

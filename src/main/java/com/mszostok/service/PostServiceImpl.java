@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Optional;
 
 
@@ -37,6 +38,12 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     PostRepository postRepository;
+
+    private void setDelete(int id, boolean delete){
+        Post post = postRepository.findOne(id);
+
+        post.setIsDeleted(delete);
+    }
 
     private TeaserPost convertToTeaserPost(Post post) {
         TeaserPost teaserPost = new TeaserPost(post);
@@ -82,4 +89,21 @@ public class PostServiceImpl implements PostService {
         LOGGER.debug("Save post {} to database.", post );
         postRepository.save(post);
     }
+
+    @Override
+    public Collection<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    @Override
+    public void deactivateById(int id) {
+        setDelete(id, true);
+    }
+
+    @Override
+    public void restoreById(int id) {
+        setDelete(id, false);
+    }
+
+
 }
