@@ -1,6 +1,7 @@
 package com.mszostok.service;
 
 
+import com.mszostok.domain.User;
 import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
 import com.mszostok.model.TeaserPost;
@@ -18,5 +19,5 @@ public interface PostService {
 
    FullPost getById(Integer postId);
 
-    void save(PostCreateForm form);
+    void save(PostCreateForm form, Optional<User> user);
 }

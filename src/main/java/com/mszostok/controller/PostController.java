@@ -1,13 +1,16 @@
 package com.mszostok.controller;
 
+import com.mszostok.domain.User;
 import com.mszostok.exception.PostException;
+import com.mszostok.model.CurrentUser;
 import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
 import com.mszostok.service.PostService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,15 +42,28 @@ public class PostController {
     @Autowired
     PostService postService;
 
+    private Optional<User> getLoggedUser(){
+        Authentication context = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = null;
+        if (context.getPrincipal() instanceof CurrentUser) {
+            user = ((CurrentUser) context.getPrincipal()).getUser();
+        }
+
+        return Optional.of(user);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public String savePost(@Valid @ModelAttribute("form") PostCreateForm form, BindingResult result, RedirectAttributes attr) {
 
         if (result.hasErrors()) {
+            LOGGER.warn("Post form error {} ", result);
             attr.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
             attr.addFlashAttribute("form", form);
             return "redirect:/post/add-form";
         }
-        postService.save(form);
+        postService.save(form, getLoggedUser());
+
         attr.addFlashAttribute("message", "<strong>Success!</strong> Post was added.");
         return "redirect:/";
     }
@@ -62,7 +78,7 @@ public class PostController {
         FullPost post = postService.getById(postId.orElseThrow(() -> new PostException("Wrong post id.")));
         modelAndView.addObject("post", post);
 
-        LOGGER.info("Return view: ".concat(HOME_PAGE_CONTENT));
+        LOGGER.info("Return view: {} ",HOME_PAGE_CONTENT);
         return modelAndView;
     }
 
@@ -73,7 +89,7 @@ public class PostController {
         if (!model.containsAttribute("form")) {
             model.addAttribute("form", new PostCreateForm());
         }
-        LOGGER.info("Return view: ".concat(ADD_POST));
+        LOGGER.info("Return view: {} ", ADD_POST);
         return HOME_PAGE_TEMPLATE;
     }
 }
