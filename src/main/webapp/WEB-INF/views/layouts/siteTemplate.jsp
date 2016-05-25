@@ -7,7 +7,7 @@
 <t:header/>
 
 <!-- Main Content -->
-<div class="container">
+<div class="container-fluid">
     <div class="row">
             <jsp:include page="/WEB-INF/views/${pageContentPath}.jsp"/>
     </div>
