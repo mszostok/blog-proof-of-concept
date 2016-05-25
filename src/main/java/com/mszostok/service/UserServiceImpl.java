@@ -20,6 +20,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    private void setActive(int id, boolean active){
+        User user = userRepository.findOneByIdUser(id);
+
+        user.setActive(active);
+    }
+
     @Override
     public Collection<User> getAllActiveUsers() {
         return userRepository.findByActiveTrue();
@@ -28,6 +34,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getActiveUserByEmail(String email) {
         return userRepository.findOneByeMailAndActiveTrue(email);
+    }
+
+    @Override
+    public void deactivateById(int id) {
+        setActive(id, false);
+    }
+
+    @Override
+    public void activateById(int id) {
+        setActive(id, true);
+    }
+
+    @Override
+    public Collection<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }
