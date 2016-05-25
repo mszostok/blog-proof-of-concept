@@ -2,7 +2,7 @@
 
 <!-- Post Content -->
 
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1">
         <article>
         <div class="post-heading">
             <h1>${post.title}</h1>
