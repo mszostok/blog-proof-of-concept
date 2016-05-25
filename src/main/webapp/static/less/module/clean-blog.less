@@ -22,9 +22,12 @@ p {
   }
 }
 
-.home-page {
-  background-color: @theme-light;
+.navbar-login {
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
 }
+
 h1,
 h2,
 h3,
@@ -40,18 +43,19 @@ h6 {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-a {
-  color: @gray-dark;
-  &:hover,
-  &:focus {
-    color: @brand-primary;
+.site {
+  a {
+    color: @gray-dark;
+    &:hover,
+    &:focus {
+      color: @brand-primary;
+    }
   }
-}
-
-a img {
-  &:hover,
-  &:focus {
-    cursor: zoom-in;
+  a img {
+    &:hover,
+    &:focus {
+      cursor: zoom-in;
+    }
   }
 }
 
@@ -69,6 +73,20 @@ hr.small {
 
 // Navigation
 
+.navbar {
+  .nav {
+    li {
+      button {
+        margin-left: 18px;
+        color: black;
+        background: none;
+        border: none;
+      }
+
+    }
+  }
+}
+
 .navbar-custom {
   position: absolute;
   top: 0;
@@ -79,16 +97,7 @@ hr.small {
   .navbar-brand {
     font-weight: 800;
   }
-  .nav {
-    li {
-      a {
-        text-transform: uppercase;
-        font-size: 15px;
-        font-weight: 800;
-        letter-spacing: 1px;
-      }
-    }
-  }
+
   @media only screen and (min-width: 768px) {
     background: transparent;
     border-bottom: 1px solid transparent;
@@ -103,8 +112,7 @@ hr.small {
 
     .nav {
       li {
-        button{
-          margin:20px;
+        button {
           color: black;
           background: none;
           border: none;
@@ -462,3 +470,4 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: @brand-primary;
 }
+

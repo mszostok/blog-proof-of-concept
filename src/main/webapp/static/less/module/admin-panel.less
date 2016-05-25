@@ -1,0 +1,75 @@
+div.tile {
+  padding: 30px 15px;
+  border: 1px solid @theme-gray-light;
+  margin-bottom: 30px;
+
+  @media (max-width: 767px) {
+    margin-bottom: 10px;
+  }
+
+  &:hover {
+    background: lighten(@theme-gray-light, 7%);
+  }
+
+  a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    i {
+      margin: 0 0 10px;
+    }
+
+    h3 {
+      margin-top: 5px;
+
+      .small {
+        margin-top:5px;
+      }
+    }
+  }
+}
+
+#data-table_wrapper {
+  margin: 15px;
+}
+
+.reports-panel {
+  .form-group {
+    margin: 5px 0;
+    label {
+      padding: 0 10px;
+    }
+  }
+
+  button {
+    margin: 5px 0 5px 10px;
+  }
+
+  @media (max-width: 767px) {
+    button, .form-group {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
+
+.header-panel {
+  background: @theme-gray;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+
+  .label {
+    position: relative;
+    top: -1px;
+    margin-left: 10px;
+  }
+
+  p {
+    color: @white;
+    line-height: 40px;
+    margin: 0;
+  }
+}
