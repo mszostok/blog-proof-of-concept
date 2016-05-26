@@ -2,6 +2,7 @@ package com.mszostok.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * @author mszostok
@@ -31,6 +32,12 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "users_id_user")
     private User user;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "posts_tags", schema = "public", joinColumns = {
+            @JoinColumn(name = "id_post") },
+            inverseJoinColumns = { @JoinColumn(name = "id_tags") })
+    private Set<Tag> tags;
 
     public Post() {
     }
@@ -91,9 +98,16 @@ public class Post {
         this.user = user;
     }
 
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -105,8 +119,8 @@ public class Post {
         if (title != null ? !title.equals(post.title) : post.title != null) return false;
         if (content != null ? !content.equals(post.content) : post.content != null) return false;
         if (user != null ? !user.equals(post.user) : post.user != null) return false;
+        return tags != null ? tags.equals(post.tags) : post.tags == null;
 
-        return true;
     }
 
     @Override
@@ -117,18 +131,9 @@ public class Post {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "content='" + content + '\'' +
-                ", idPost=" + idPost +
-                ", postDate=" + postDate +
-                ", title='" + title + '\'' +
-                ", isDeleted=" + isDeleted +
-                ", user=" + user +
-                '}';
-    }
+
 }
