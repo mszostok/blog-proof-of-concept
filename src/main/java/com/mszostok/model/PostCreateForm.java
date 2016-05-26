@@ -3,6 +3,8 @@ package com.mszostok.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
+ * Post create form model with field validation and suitable message for it.
+ *
  * @author mszostok
  */
 public class PostCreateForm {

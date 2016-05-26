@@ -20,13 +20,13 @@
                 </p>
             </div>
             <m:listGroupItem icon="fa-table" name="Dashboard" path="/admin"
-                             active="${baseURL}"/>
+                             activeUrlPattern="${baseURL}"/>
             <m:listGroupItem icon="fa-home" name="Home page" path="/"
-                             active="${baseURL}"/>
+                             activeUrlPattern="${baseURL}"/>
             <m:listGroupItem icon="fa-users" name="Users" path="/admin/manage-users"
-                             active="${baseURL}"/>
+                             activeUrlPattern="${baseURL}"/>
             <m:listGroupItem icon="fa-sticky-note" name="Posts" path="/admin/manage-posts"
-                             active="${baseURL}"/>
+                             activeUrlPattern="${baseURL}"/>
 
 
             <form role="form" action="<t:url value='/logout' />" method="post">

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * User controller to handle user management request mapping.
+ *
  * @author mszostok
  */
 @Controller
@@ -27,19 +29,25 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/deactivate/{id}", method = RequestMethod.POST)
     public String deactivateClient(@PathVariable int id, HttpServletRequest request) {
+        LOGGER.info("Execute deactivateClient method - only for ADMIN user");
 
         userService.deactivateById(id);
 
-        return "redirect:" + request.getHeader("Referer");
+        String referer = request.getHeader("Referer");
+        LOGGER.info("Redirect view to: {} ", referer);
+        return "redirect:" + referer;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/activate/{id}", method = RequestMethod.POST)
     public String activateClient(@PathVariable int id, HttpServletRequest request) {
+        LOGGER.info("Execute activateClient method - only for ADMIN user");
 
         userService.activateById(id);
 
-        return "redirect:" + request.getHeader("Referer");
+        String referer = request.getHeader("Referer");
+        LOGGER.info("Redirect view to: {} ", referer);
+        return "redirect:" + referer;
     }
 
 }

@@ -32,10 +32,8 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private static final Logger LOGGER = LogManager.getLogger(PostServiceImpl.class);
-    /**
-     * Max number of post per page
-     */
-    private static final int PAGE_SIZE = 2;
+
+    private static final int MAX_PAGE_SIZE = 2;
 
     @Autowired
     PostRepository postRepository;
@@ -55,7 +53,7 @@ public class PostServiceImpl implements PostService {
          * pageNumber -1 due to page start with 0, but first page number for user will be 1,
          * we sorting by post date with descending direction to get proper order at blog page.
          */
-        PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "postDate");
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, MAX_PAGE_SIZE, Sort.Direction.DESC, "postDate");
 
         postArchiveSidebarService.getArchiveList();
         return postRepository.findByIsDeletedFalse(pageRequest).map(CustomConverter::postToTeaserPost);
@@ -71,15 +69,17 @@ public class PostServiceImpl implements PostService {
     @Override
     public void save(PostCreateForm form, Optional<User> user) {
         Post post = new Post();
+
         /** Use the jsoup HTML Cleaner with a configuration specified by a Whitelist to avoid XSS */
         LOGGER.info("Clean form content to avoid XSS.");
         String safeContent = Jsoup.clean(form.getContent(), Whitelist.basicWithImages());
 
         post.setContent(safeContent);
+        //Add actual time for created post.
         post.setPostDate(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
         post.setTitle(form.getTitle());
 
-        /** Anonymous post */
+        /// Anonymous post when user is null
         post.setUser(user.orElse(null));
 
         LOGGER.debug("Save post {} to database.", post);

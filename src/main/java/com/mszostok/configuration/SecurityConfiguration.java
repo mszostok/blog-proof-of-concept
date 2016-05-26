@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
+ * Custom spring security configuration, define url permission
+ * and password type encoder.
+ *
  * @author mszostok
  */
 @Configuration
@@ -30,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/static/**"); // Ignore any request for resources
+                .antMatchers("/static/**"); // None authority needed for resources request
     }
 
     @Override

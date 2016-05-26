@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Post controller
+ * Post controller to handle post management request mapping.
  *
  * @author mszostok
  */
@@ -51,35 +51,28 @@ public class PostController {
     @Autowired
     PostArchiveSidebarService postArchiveService;
 
-    private Optional<User> getLoggedUser() {
+    /**
+     * Get logged user domain object.
+     *
+     * @return User if it logged otherwise return null
+     */
+    private Optional<User> getLoggedUser(){
         Authentication context = SecurityContextHolder.getContext().getAuthentication();
 
         User user = null;
         if (context.getPrincipal() instanceof CurrentUser) {
             user = ((CurrentUser) context.getPrincipal()).getUser();
+            LOGGER.info("Return logged user : {}", user);
+        } else {
+            LOGGER.info("Return user is anonymous.");
         }
 
         return Optional.ofNullable(user);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String savePost(@Valid @ModelAttribute("form") PostCreateForm form, BindingResult result, RedirectAttributes attr) {
-
-        if (result.hasErrors()) {
-            LOGGER.warn("Post form error {} ", result);
-            attr.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
-            attr.addFlashAttribute("form", form);
-            return "redirect:/post/add-form";
-        }
-        postService.save(form, getLoggedUser());
-
-        attr.addFlashAttribute("message", "<strong>Success!</strong> Post was added.");
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/{postId}/{postTitle}", method = RequestMethod.GET)
-    public ModelAndView postDetails(@PathVariable Optional<Integer> postId,
-                                    @PathVariable Optional<String> postTitle) throws PostException {
+    @RequestMapping(value = "/{postId}/{postTitle}",method = RequestMethod.GET)
+    public ModelAndView postDetailsPage(@PathVariable Optional<Integer> postId,
+                              @PathVariable Optional<String> postTitle) throws PostException {
 
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
         modelAndView.addObject("pageContentPath", HOME_PAGE_CONTENT);
@@ -87,8 +80,24 @@ public class PostController {
         FullPost post = postService.getById(postId.orElseThrow(() -> new PostException("Wrong post id.")));
         modelAndView.addObject("post", post);
 
-        LOGGER.info("Return view: {} ", HOME_PAGE_CONTENT);
+        LOGGER.info("Return view: {} ",HOME_PAGE_CONTENT);
         return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String savePost(@Valid @ModelAttribute("form") PostCreateForm form, BindingResult result, RedirectAttributes attr) {
+
+        if (result.hasErrors()) {
+            LOGGER.error("Post form error {} ", result);
+            attr.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
+            attr.addFlashAttribute("form", form);
+            return "redirect:/post/add-form";
+        }
+        postService.save(form, getLoggedUser());
+
+        LOGGER.info("Redirect to home page with success created post message.");
+        attr.addFlashAttribute("message", "<strong>Success!</strong> Post was added.");
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/archive/{year}/{month}", method = RequestMethod.GET)
@@ -107,7 +116,7 @@ public class PostController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add-form", method = RequestMethod.GET)
+    @RequestMapping(value = "/add-form",method = RequestMethod.GET)
     public String addNewPost(Model model) {
 
         model.addAttribute("pageContentPath", ADD_POST);
@@ -121,18 +130,24 @@ public class PostController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String deletePost(@PathVariable int id, HttpServletRequest request) {
+        LOGGER.info("Execute deletePost method - only for ADMIN user");
 
         postService.deactivateById(id);
 
-        return "redirect:" + request.getHeader("Referer");
+        String referer = request.getHeader("Referer");
+        LOGGER.info("Redirect view to: {} ", referer);
+        return "redirect:" + referer;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/restore/{id}", method = RequestMethod.POST)
     public String restorePost(@PathVariable int id, HttpServletRequest request) {
+        LOGGER.info("Execute restorePost method - only for ADMIN user");
 
         postService.restoreById(id);
 
-        return "redirect:" + request.getHeader("Referer");
+        String referer = request.getHeader("Referer");
+        LOGGER.info("Redirect view to: {} ", referer);
+        return "redirect:" + referer;
     }
 }

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
-import java.util.List;
+
 
 /**
+ * Administrator controller for blog management.
+ *
  * @author mszostok
  */
 @Controller
@@ -53,8 +55,11 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView(ADMIN_TEMPLATE);
         modelAndView.addObject("pageContentPath", MANAGE_USERS);
 
-        modelAndView.addObject("users", userService.getAllUsers());
+        Collection<User> users  = userService.getAllUsers();
+        LOGGER.debug("Add users list to model : List size {} ", users.size() );
+        modelAndView.addObject("users", users);
 
+        LOGGER.info("Return manage user panel view : {} ", MANAGE_USERS);
         return modelAndView;
     }
 
@@ -65,8 +70,11 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView(ADMIN_TEMPLATE);
         modelAndView.addObject("pageContentPath", MANAGE_POSTS);
 
-        modelAndView.addObject("posts", postService.getAllPosts());
+        Collection<Post> posts  = postService.getAllPosts();
+        LOGGER.debug("Add posts list to model : List size {} ", posts.size() );
+        modelAndView.addObject("posts", posts);
 
+        LOGGER.info("Return manage posts panel view : {} ", MANAGE_POSTS);
         return modelAndView;
     }
 }

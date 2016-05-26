@@ -4,6 +4,11 @@ import com.mszostok.domain.User;
 import com.mszostok.util.CustomConverter;
 import org.springframework.security.core.authority.AuthorityUtils;
 
+/**
+ * Current logged user object with proper username, password and authorities list.
+ *
+ * @author mszostok
+ */
 public class CurrentUser extends org.springframework.security.core.userdetails.User {
 
     private User user;

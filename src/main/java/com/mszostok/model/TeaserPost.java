@@ -5,7 +5,6 @@ import com.mszostok.domain.User;
 import com.mszostok.util.SlugGenerator;
 import org.jsoup.Jsoup;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -15,12 +14,12 @@ import java.util.Date;
  */
 public class TeaserPost extends PostWrapper {
 
-    private static final Integer TeaserContentSize = 255;
+    private static final Integer MAX_TEASER_CONTENT_SIZE = 255;
 
     private String url;
 
     public TeaserPost(Post post) {
-        String html = post.getContent().substring(0, Math.min(post.getContent().length(),TeaserContentSize)).concat("...");
+        String html = post.getContent().substring(0, Math.min(post.getContent().length(), MAX_TEASER_CONTENT_SIZE)).concat("...");
         content = Jsoup.parse(html).text();
         idPost = post.getIdPost();
         postDate = new Date(post.getPostDate().getTime());

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 /**
+ * Login controller to handle spring security log in failure.
+ *
  * @author mszostok
  */
 @Controller
@@ -23,7 +25,7 @@ public class LoginController {
     public ModelAndView loginForm(@RequestParam(value = "error", required = false) Optional<String> error,
                                   HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
-        error.ifPresent($ -> LOGGER.error("An error occurred during log in"));
+        error.ifPresent($ -> LOGGER.error("An error occurred during log in (spring security add error param)"));
 
         String referer = "redirect:" + request.getHeader("Referer");
         redirectAttributes.addFlashAttribute("error", error);

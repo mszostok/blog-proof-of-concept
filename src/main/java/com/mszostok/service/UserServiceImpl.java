@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private void setActive(int id, boolean active){
         User user = userRepository.findOneByIdUser(id);
 
-        user.setActive(active);
+        user.setActive(active); //automatic update due to Transactional annotation
     }
 
     @Override
