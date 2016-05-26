@@ -53,5 +53,29 @@ CREATE UNIQUE INDEX User_roles__IDX ON User_roles
 ALTER TABLE User_roles ADD CONSTRAINT User_roles_PK PRIMARY KEY ( id_user_role ) ;
 
 
+CREATE TABLE Tags
+(
+  id_tags SERIAL,
+  title VARCHAR(50) NOT NULL
+);
+CREATE UNIQUE INDEX Tags__IDX ON Tags
+  (
+    id_tags ASC
+  )
+  ;
+
+ALTER TABLE Tags ADD CONSTRAINT Tags_PK PRIMARY KEY ( id_tags ) ;
+
+
+CREATE TABLE Posts_Tags
+(
+  id_tags    INTEGER REFERENCES Tags (id_tags), 
+  id_post INTEGER REFERENCES Posts (id_post), 
+
+  CONSTRAINT Posts_Tags_PK PRIMARY KEY (id_tags, id_post)
+);
+
+
 ALTER TABLE Posts ADD CONSTRAINT Posts_Users_FK FOREIGN KEY ( users_id_user ) REFERENCES Users ( id_user ) ;
+
 ALTER TABLE User_roles ADD CONSTRAINT User_roles_Entrances_FK FOREIGN KEY ( users_id_user ) REFERENCES Users ( id_user ) ;

@@ -11,8 +11,18 @@ DELETE FROM "public"."user_roles";
 DELETE FROM "public"."posts";
 COMMIT;
 
-
+/* Table public.tags cleared */
+DELETE FROM "public"."tags";
 COMMIT;
+
+/* Generating data for table public.tags... */
+INSERT INTO "public"."tags"("title")
+VALUES( E'lorem');
+INSERT INTO "public"."tags"("title")
+VALUES( E'ipsum');
+COMMIT;
+
+
 /* Generating data for table public.users... */
 INSERT INTO "public"."users"("first_name","last_name","e_mail","password", "is_active")
 VALUES(E'Elżbieta',E'Wojciechowski',E'ela.testowy@test.com',E'$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C',TRUE);
@@ -93,3 +103,19 @@ INSERT INTO "public"."posts"("post_date","post_title","post_content","users_id_u
 VALUES('2016-05-24 19:00:00.000000',E'Integer volutpat nunc',E'Integer volutpat nunc sit amet iaculis maximus. Fusce tempor mattis est, et vestibulum justo suscipit eu. Curabitur eros nulla, suscipit rhoncus sapien eget, fermentum tempor augue. Mauris feugiat lorem nisi, ut tristique neque sagittis in. Ut scelerisque condimentum dictum. Nulla efficitur diam ut imperdiet ultrices. Suspendisse vitae arcu lobortis, euismod mauris non, egestas est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras risus risus, consectetur eget sagittis at, scelerisque et elit. Curabitur lorem augue, luctus non blandit eget, dictum vitae nunc. Nam sem ante, tristique et felis sed, efficitur pharetra elit. Quisque eget pulvinar sapien, a tristique nibh. Pellentesque. ',2,FALSE);
 INSERT INTO "public"."posts"("post_date","post_title","post_content","users_id_user", "is_deleted")
 VALUES('2016-05-24 20:00:00.000000',E'Vestibulum ante ipsum',E'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent sit amet ligula viverra, pellentesque est eu, iaculis magna. Nam vel blandit lorem, id aliquam justo. Fusce placerat purus urna, ut sollicitudin turpis tincidunt eu. Sed arcu lorem, maximus et ante bibendum, dictum mattis nisl. Nunc tristique tincidunt enim eu cursus. Pellentesque rutrum justo vel erat sagittis, id imperdiet diam volutpat.  ',2,FALSE);
+
+
+INSERT INTO "public"."posts_tags"("id_tags","id_post")
+VALUES(1, 1);
+INSERT INTO "public"."posts_tags"("id_tags","id_post")
+VALUES(2, 1);
+INSERT INTO "public"."posts_tags"("id_tags","id_post")
+VALUES(1, 2);
+INSERT INTO "public"."posts_tags"("id_tags","id_post")
+VALUES(1, 3);
+INSERT INTO "public"."posts_tags"("id_tags","id_post")
+VALUES(1, 4);
+INSERT INTO "public"."posts_tags"("id_tags","id_post")
+VALUES(1, 5);
+INSERT INTO "public"."posts_tags"("id_tags","id_post")
+VALUES(1, 6);
