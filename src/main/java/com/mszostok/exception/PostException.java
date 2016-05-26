@@ -1,7 +1,7 @@
 package com.mszostok.exception;
 
 /**
- * Exception use when post(s) cannot be found.
+ * Exception for any post error.
  *
  * @author mszostok
  */

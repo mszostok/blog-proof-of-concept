@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
+ * Implements spring UserDetailsService to provide proper user verification.
+ *
  * @author mszostok
  */
 @Service("userDetailsService")
@@ -20,6 +22,8 @@ public class CurrentUserDetailsService implements UserDetailsService {
 
     @Autowired
     UserService userService;
+
+
     @Override
     public CurrentUser loadUserByUsername(String email) throws UsernameNotFoundException {
         LOGGER.info("Authenticating user with email = {}", email);
