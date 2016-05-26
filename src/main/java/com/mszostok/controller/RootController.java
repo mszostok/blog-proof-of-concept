@@ -1,6 +1,7 @@
 package com.mszostok.controller;
 
 import com.mszostok.model.TeaserPost;
+import com.mszostok.service.PostArchiveSidebarService;
 import com.mszostok.service.PostService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +35,9 @@ public class RootController {
     @Autowired
     PostService postService;
 
+    @Autowired
+    PostArchiveSidebarService postArchiveService;
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(){
 
@@ -53,6 +57,8 @@ public class RootController {
         LOGGER.info("Get posts for page: {} ", pageNumber.orElse(1));
         Page<TeaserPost> page = postService.getPostsForPage(pageNumber.orElse(1));
         modelAndView.addObject("page", page);
+
+        modelAndView.addObject("archivesList", postArchiveService.getArchiveList());
 
         return  modelAndView;
     }

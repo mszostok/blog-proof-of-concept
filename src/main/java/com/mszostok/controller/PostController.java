@@ -5,7 +5,10 @@ import com.mszostok.exception.PostException;
 import com.mszostok.model.CurrentUser;
 import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
+import com.mszostok.model.TeaserPost;
+import com.mszostok.service.PostArchiveSidebarService;
 import com.mszostok.service.PostService;
+import com.mszostok.util.CustomConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -37,14 +41,17 @@ public class PostController {
     private static final Logger LOGGER = LogManager.getLogger(RootController.class);
 
     private static final String HOME_PAGE_TEMPLATE = "layouts/siteTemplate";
-    private static final String HOME_PAGE_CONTENT = "site/postDetails";
+    private static final String HOME_PAGE_CONTENT = "post/postDetails";
 
     private static final String ADD_POST = "post/addNewPost";
 
     @Autowired
     PostService postService;
 
-    private Optional<User> getLoggedUser(){
+    @Autowired
+    PostArchiveSidebarService postArchiveService;
+
+    private Optional<User> getLoggedUser() {
         Authentication context = SecurityContextHolder.getContext().getAuthentication();
 
         User user = null;
@@ -70,9 +77,9 @@ public class PostController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/{postId}/{postTitle}",method = RequestMethod.GET)
-    public ModelAndView index(@PathVariable Optional<Integer> postId,
-                              @PathVariable Optional<String> postTitle) throws PostException {
+    @RequestMapping(value = "/{postId}/{postTitle}", method = RequestMethod.GET)
+    public ModelAndView postDetails(@PathVariable Optional<Integer> postId,
+                                    @PathVariable Optional<String> postTitle) throws PostException {
 
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
         modelAndView.addObject("pageContentPath", HOME_PAGE_CONTENT);
@@ -80,11 +87,27 @@ public class PostController {
         FullPost post = postService.getById(postId.orElseThrow(() -> new PostException("Wrong post id.")));
         modelAndView.addObject("post", post);
 
-        LOGGER.info("Return view: {} ",HOME_PAGE_CONTENT);
+        LOGGER.info("Return view: {} ", HOME_PAGE_CONTENT);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add-form",method = RequestMethod.GET)
+    @RequestMapping(value = "/archive/{year}/{month}", method = RequestMethod.GET)
+    public ModelAndView postArchive(@PathVariable(value = "year") Integer year,
+                                    @PathVariable(value = "month") Integer month) {
+        LOGGER.info("Return view: {} ", HOME_PAGE_CONTENT);
+        ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
+        modelAndView.addObject("pageContentPath", "post/postArchivePage");
+
+        List<TeaserPost> posts = postService.getPostByMonthAndYear(month, year);
+        modelAndView.addObject("posts", posts);
+
+        modelAndView.addObject("headerTitle", "Monthly Archives: " + CustomConverter.urlDateToPrettyDate(year, month));
+        modelAndView.addObject("archivesList", postArchiveService.getArchiveList());
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add-form", method = RequestMethod.GET)
     public String addNewPost(Model model) {
 
         model.addAttribute("pageContentPath", ADD_POST);
