@@ -8,7 +8,14 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading">
-                    <h1><a href="<c:url value="/"/>" >Blog Proof of Concept</a> </h1>
+                    <c:choose>
+                        <c:when test="${empty headerTitle}">
+                            <h1><a href="<c:url value="/"/>" >Blog Proof of Concept</a> </h1>
+                        </c:when>
+                        <c:otherwise>
+                            <h1>${headerTitle}</h1>
+                        </c:otherwise>
+                    </c:choose>
                     <hr class="small">
                     <span class="subheading">Nunc lobortis sit amet tortor a molestie</span>
                 </div>

@@ -1,6 +1,7 @@
 <%@ tag %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="m" uri="menu" %>
 <c:set var="baseURL" value="${requestScope['javax.servlet.forward.request_uri']}"/>
 
 <aside class="col-md-2 col-sm-4 col-xs-12 sidebar">
@@ -28,7 +29,14 @@
                     <a href="#" class="pull-right register-link">Register</a>
                 </form>
             </security:authorize>
-
+            <br/>
+            <h3>Archives</h3>
+            <ul class="list-group">
+                <c:forEach var="position" items="${archivesList}">
+                    <m:listGroupItem name="${position.displayName}" path="${position.archivePageUrl}"
+                                     active="${baseURL}"/>
+                </c:forEach>
+            </ul>
         </div>
     </div>
     </div>
