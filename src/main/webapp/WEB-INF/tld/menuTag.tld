@@ -16,6 +16,7 @@
         <attribute>
             <name>name</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>icon</name>
@@ -24,30 +25,12 @@
         <attribute>
             <name>path</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>active</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-
-    </tag>
-    <tag>
-        <name>navTab</name>
-        <tag-class>pl.polsl.waterpark.configuration.TabNavTag</tag-class>
-        <attribute>
-            <name>name</name>
-            <required>true</required>
-        </attribute>
-        <attribute>
-            <name>path</name>
-            <required>true</required>
-        </attribute>
-        <attribute>
-            <name>active</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-
     </tag>
 </taglib>

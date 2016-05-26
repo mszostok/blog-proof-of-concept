@@ -9,6 +9,8 @@ import com.mszostok.model.TeaserPost;
 import org.springframework.data.domain.Page;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -19,7 +21,7 @@ public interface PostService {
 
     Page<TeaserPost> getPostsForPage(int pageNumber);
 
-   FullPost getById(Integer postId);
+    FullPost getById(Integer postId);
 
     void save(PostCreateForm form, Optional<User> user);
 
@@ -28,4 +30,7 @@ public interface PostService {
     void deactivateById(int id);
 
     void restoreById(int id);
+
+    List<TeaserPost> getPostByMonthAndYear(Integer month, Integer year);
+
 }

@@ -7,6 +7,8 @@ import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
 import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
+import com.mszostok.repository.PostSpecification;
+import com.mszostok.util.CustomConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -18,9 +20,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -39,22 +40,14 @@ public class PostServiceImpl implements PostService {
     @Autowired
     PostRepository postRepository;
 
-    private void setDelete(int id, boolean delete){
+    private void setDelete(int id, boolean delete) {
         Post post = postRepository.findOne(id);
 
         post.setIsDeleted(delete);
     }
 
-    private TeaserPost convertToTeaserPost(Post post) {
-        TeaserPost teaserPost = new TeaserPost(post);
-
-        return teaserPost;
-    }
-
-    private FullPost convertToFullPost(Post post) {
-        FullPost fullPost = new FullPost(post);
-        return fullPost;
-    }
+    @Autowired
+    PostArchiveSidebarService postArchiveSidebarService;
 
     @Override
     public Page<TeaserPost> getPostsForPage(int pageNumber) {
@@ -64,12 +57,15 @@ public class PostServiceImpl implements PostService {
          */
         PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "postDate");
 
-        return postRepository.findByIsDeletedFalse(pageRequest).map(this::convertToTeaserPost);
+        postArchiveSidebarService.getArchiveList();
+        return postRepository.findByIsDeletedFalse(pageRequest).map(CustomConverter::postToTeaserPost);
+
     }
+
 
     @Override
     public FullPost getById(Integer postId) {
-        return convertToFullPost(postRepository.findByIdPost(postId).orElseThrow(() -> new PostException("Could not find post.")));
+        return CustomConverter.postToFullPost(postRepository.findByIdPost(postId).orElseThrow(() -> new PostException("Could not find post.")));
     }
 
     @Override
@@ -86,7 +82,7 @@ public class PostServiceImpl implements PostService {
         /** Anonymous post */
         post.setUser(user.orElse(null));
 
-        LOGGER.debug("Save post {} to database.", post );
+        LOGGER.debug("Save post {} to database.", post);
         postRepository.save(post);
     }
 
@@ -105,5 +101,20 @@ public class PostServiceImpl implements PostService {
         setDelete(id, false);
     }
 
+    @Override
+    public List<TeaserPost> getPostByMonthAndYear(Integer month, Integer year) {
+
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.set(year, month - 1, 1);
+        Date date = calendar.getTime();
+
+        PostSpecification postSpecification = new PostSpecification(date);
+        List<Post> posts = postRepository.findAll(postSpecification);
+
+        return posts
+                .stream()
+                .map(CustomConverter::postToTeaserPost)
+                .collect(Collectors.toList());
+    }
 
 }
