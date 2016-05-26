@@ -16,6 +16,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Post archive sidebar service which can return archive month list where post are available.
+ * Lazy update - only when get list.
+ *
  * @author mszostok
  */
 @Service("postArchiveSidebarService")
@@ -45,7 +48,7 @@ public class PostArchiveSidebarServiceImpl  implements PostArchiveSidebarService
     private void updateDatesList() {
         LOGGER.info("Create archive date list only for existing monthsAndYears");
 
-        //TODO count repeated date with groupby
+        //TODO count repeated date  (can be achieved with group by method)
         monthsAndYears = postRepository.findByIsDeletedFalse(new Sort(Sort.Direction.DESC, "postDate"))
                 .stream()
                 .map(post -> DATE_TO_STRING.format(post.getPostDate()))
