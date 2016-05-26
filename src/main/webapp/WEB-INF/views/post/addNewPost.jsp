@@ -38,6 +38,14 @@
                     </div>
                 </fieldset>
 
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Tags</label>
+                    <div class="col-xs-8">
+                        <form:input path="tagsInput" type="text" name="tags"
+                                    class="form-control" data-role="tagsinput"
+                                    data-toggle='tooltip' title='Divide by comma' data-placement='bottom' />
+                    </div>
+                </div>
 
                 <button type="submit" class="btn btn-primary pull-right">Save & Publish</button>
             </div>

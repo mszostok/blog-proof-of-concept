@@ -1,13 +1,15 @@
 package com.mszostok.service;
 
+import com.mszostok.Specification.NotDeletedPostForSetMonthAndYearDate;
 import com.mszostok.domain.Post;
+import com.mszostok.domain.Tag;
 import com.mszostok.domain.User;
 import com.mszostok.exception.PostException;
 import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
 import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
-import com.mszostok.Specification.NotDeletedPostForSetMonthAndYearDate;
+import com.mszostok.repository.TagRepository;
 import com.mszostok.util.CustomConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,12 +41,28 @@ public class PostServiceImpl implements PostService {
     PostRepository postRepository;
 
     @Autowired
+    TagRepository tagRepository;
+
+    @Autowired
     PostArchiveSidebarService postArchiveService;
 
     private void setDelete(int id, boolean delete) {
         Post post = postRepository.findOne(id);
 
         post.setIsDeleted(delete);
+    }
+
+    private HashSet<Tag> getTagSetFromTagsInput(String tags) {
+
+        //remove all html tags
+        String safeTagsInput = Jsoup.parse(tags).text();
+
+        //remove all whitespace, create list with comma delimiter
+        List<String> tagsList = Arrays.asList(safeTagsInput.replaceAll("\\s+", "").split(","));
+
+        //get tag from table or if not exists create new one
+        return tagsList.stream().map(title -> tagRepository.findOneByTitle(title).orElse(new Tag(title)))
+                .collect(Collectors.toCollection(HashSet<Tag>::new));
     }
 
     @Override
@@ -72,6 +90,7 @@ public class PostServiceImpl implements PostService {
         LOGGER.info("Clean form content to avoid XSS.");
         String safeContent = Jsoup.clean(form.getContent(), Whitelist.basicWithImages());
 
+
         post.setContent(safeContent);
         //Add actual time for created post.
         post.setPostDate(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
@@ -79,6 +98,8 @@ public class PostServiceImpl implements PostService {
 
         /// Anonymous post when user is null
         post.setUser(user.orElse(null));
+
+        post.setTags(getTagSetFromTagsInput(form.getTagsInput()));
 
         LOGGER.debug("Save post {} to database.", post);
         postRepository.save(post);
