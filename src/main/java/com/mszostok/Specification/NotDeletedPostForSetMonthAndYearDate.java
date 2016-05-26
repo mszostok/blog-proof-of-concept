@@ -1,4 +1,4 @@
-package com.mszostok.repository;
+package com.mszostok.Specification;
 
 import com.mszostok.domain.Post;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,11 +15,11 @@ import java.util.List;
  * date, with focus only on year and month
  * @author mszostok
  */
-public class PostSpecification implements Specification<Post> {
+public class NotDeletedPostForSetMonthAndYearDate implements Specification<Post> {
 
     private final Date date;
 
-    public PostSpecification(Date date) {
+    public NotDeletedPostForSetMonthAndYearDate(Date date) {
         this.date = date;
     }
     @Override

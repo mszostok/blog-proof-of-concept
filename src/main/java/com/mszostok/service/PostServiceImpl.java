@@ -7,7 +7,7 @@ import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
 import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
-import com.mszostok.repository.PostSpecification;
+import com.mszostok.Specification.NotDeletedPostForSetMonthAndYearDate;
 import com.mszostok.util.CustomConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -109,8 +109,8 @@ public class PostServiceImpl implements PostService {
         calendar.set(year, month - 1, 1);
         Date date = calendar.getTime();
 
-        PostSpecification postSpecification = new PostSpecification(date);
-        List<Post> posts = postRepository.findAll(postSpecification);
+        NotDeletedPostForSetMonthAndYearDate notDeletedPostForSetMonthAndYearDate = new NotDeletedPostForSetMonthAndYearDate(date);
+        List<Post> posts = postRepository.findAll(notDeletedPostForSetMonthAndYearDate);
 
         return posts
                 .stream()
