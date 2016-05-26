@@ -22,6 +22,13 @@ public class Tag {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags")
     private Set<Post> posts;
 
+    public Tag() {
+    }
+
+    public Tag(String title) {
+        this.title = title;
+    }
+
     public Integer getIdTag() {
         return idTag;
     }
