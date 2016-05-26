@@ -1,7 +1,7 @@
 package com.mszostok.model;
 
 import com.mszostok.domain.User;
-import com.mszostok.util.ParseUserRoles;
+import com.mszostok.util.CustomConverter;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 public class CurrentUser extends org.springframework.security.core.userdetails.User {
@@ -10,7 +10,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 
     public CurrentUser(User user) {
         super(user.geteMail(), user.getPassword(),
-                AuthorityUtils.createAuthorityList(ParseUserRoles.toStringArray.apply(user.getRolesList())));
+                AuthorityUtils.createAuthorityList(CustomConverter.roleListToStringArray.apply(user.getRolesList())));
         this.user = user;
     }
 
@@ -23,7 +23,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
     }
 
     public String[] getRole() {
-        return ParseUserRoles.toStringArray.apply(user.getRolesList());
+        return CustomConverter.roleListToStringArray.apply(user.getRolesList());
     }
 
     @Override

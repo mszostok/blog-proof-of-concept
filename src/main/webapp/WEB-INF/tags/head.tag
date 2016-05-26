@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog</title>
+    <title>Blog POC</title>
 
     <link href="<c:url value='/static/css/style.css'/>" rel="stylesheet">
 
