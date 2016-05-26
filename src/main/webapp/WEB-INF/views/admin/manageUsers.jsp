@@ -24,7 +24,7 @@
                 <c:forEach var="post" items="${users}">
 
                     <c:choose>
-                        <c:when test="${post.activeUrlPattern eq true }">
+                        <c:when test="${post.active eq true }">
                             <c:set var="btnStyle" scope="session" value="btn-danger"/>
                             <c:set var="btnName" scope="session" value="Deactivate"/>
                             <c:set var="btnUrlPrefix" scope="session" value="deactivate"/>

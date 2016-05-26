@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<c:set var="activeUrlPattern" value="/manager" scope="request" />
 <div class="row">
     <div class="col-xs-12">
         <h1>Admin Dashboard</h1>

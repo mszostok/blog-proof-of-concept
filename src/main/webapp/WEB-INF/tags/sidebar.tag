@@ -34,7 +34,7 @@
             <ul class="list-group">
                 <c:forEach var="position" items="${archivesList}">
                     <m:listGroupItem name="${position.displayName}" path="${position.archivePageUrl}"
-                                     active="${baseURL}"/>
+                                     activeUrlPattern="${baseURL}"/>
                 </c:forEach>
             </ul>
         </div>

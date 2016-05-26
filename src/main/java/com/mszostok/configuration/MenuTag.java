@@ -21,7 +21,7 @@ public class MenuTag extends TagSupport {
     private static final String END_TAG = "</a>";
 
     private String path;
-    private String icon;
+    private String icon = "";
     private String activeUrlPattern;
     private String name;
 
@@ -48,7 +48,7 @@ public class MenuTag extends TagSupport {
         JspWriter out = pageContext.getOut();
 
         try {
-            String cssClass = activeUrlPattern.equals(path) ? "activeUrlPattern" : "" ;
+            String cssClass = activeUrlPattern.equals(path) ? "active" : "" ;
 
             String iconPrint = "";
             if (!icon.isEmpty()) {
@@ -66,7 +66,7 @@ public class MenuTag extends TagSupport {
             );
             out.write(END_TAG);
         } catch (Exception ex) {
-            LOGGER.error("Error occurred while creating custom tag : {}" ,ex);
+            LOGGER.error("Error occurred while creating custom tag" ,ex);
         }
 
         return SKIP_BODY;
