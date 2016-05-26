@@ -45,7 +45,8 @@ public class PostArchiveSidebarServiceImpl  implements PostArchiveSidebarService
     private void updateDatesList() {
         LOGGER.info("Create archive date list only for existing monthsAndYears");
 
-        monthsAndYears = postRepository.findAll(new Sort(Sort.Direction.DESC, "postDate"))
+        //TODO count repeated date with groupby
+        monthsAndYears = postRepository.findByIsDeletedFalse(new Sort(Sort.Direction.DESC, "postDate"))
                 .stream()
                 .map(post -> DATE_TO_STRING.format(post.getPostDate()))
                 .collect(Collectors.toCollection(TreeSet::new)); //automatically sorted in natural order

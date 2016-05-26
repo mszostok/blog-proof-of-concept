@@ -33,7 +33,8 @@ public class PostSpecification implements Specification<Post> {
             Path<Date> rootPostDate = root.get("postDate");
             return cb.and(
                     cb.equal(cb.function("year", Integer.class, rootPostDate), dateCalendar.get(Calendar.YEAR)),
-                    cb.equal(cb.function("month", Integer.class, rootPostDate), dateCalendar.get(Calendar.MONTH) + 1)
+                    cb.equal(cb.function("month", Integer.class, rootPostDate), dateCalendar.get(Calendar.MONTH) + 1),
+                    cb.isFalse(root.get("isDeleted"))
             );
 
         }

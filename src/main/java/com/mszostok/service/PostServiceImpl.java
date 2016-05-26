@@ -38,14 +38,14 @@ public class PostServiceImpl implements PostService {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    PostArchiveSidebarService postArchiveService;
+
     private void setDelete(int id, boolean delete) {
         Post post = postRepository.findOne(id);
 
         post.setIsDeleted(delete);
     }
-
-    @Autowired
-    PostArchiveSidebarService postArchiveSidebarService;
 
     @Override
     public Page<TeaserPost> getPostsForPage(int pageNumber) {
@@ -55,11 +55,9 @@ public class PostServiceImpl implements PostService {
          */
         PageRequest pageRequest = new PageRequest(pageNumber - 1, MAX_PAGE_SIZE, Sort.Direction.DESC, "postDate");
 
-        postArchiveSidebarService.getArchiveList();
         return postRepository.findByIsDeletedFalse(pageRequest).map(CustomConverter::postToTeaserPost);
 
     }
-
 
     @Override
     public FullPost getById(Integer postId) {
@@ -84,6 +82,7 @@ public class PostServiceImpl implements PostService {
 
         LOGGER.debug("Save post {} to database.", post);
         postRepository.save(post);
+        postArchiveService.setUpdate(true);
     }
 
     @Override
@@ -94,11 +93,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deactivateById(int id) {
         setDelete(id, true);
+        postArchiveService.setUpdate(true);
     }
 
     @Override
     public void restoreById(int id) {
         setDelete(id, false);
+        postArchiveService.setUpdate(true);
     }
 
     @Override
