@@ -1,6 +1,7 @@
 package com.mszostok.controller;
 
 import com.mszostok.exception.PostException;
+import com.mszostok.exception.TagNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,8 +23,8 @@ public class GlobalExceptionHandler {
     private static final String HOME_PAGE_TEMPLATE = "layouts/siteTemplate";
     private static final String DEFAULT_ERROR_VIEW = "error/defaultErrorPage";
 
-    @ExceptionHandler( PostException.class)
-    public ModelAndView exception(HttpServletRequest req, PostException ex) {
+    @ExceptionHandler( {PostException.class, TagNotFoundException.class})
+    public ModelAndView exception(HttpServletRequest req, RuntimeException ex) {
         LOGGER.error("Request: {} raised {}", req.getRequestURL(), ex);
 
         ModelAndView modelAndView = new ModelAndView(HOME_PAGE_TEMPLATE);
