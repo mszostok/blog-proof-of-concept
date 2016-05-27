@@ -1,15 +1,13 @@
 package com.mszostok.service;
 
-import com.mszostok.Specification.NotDeletedPostForSetMonthAndYearDate;
+import com.mszostok.model.PostWrapper;
+import com.mszostok.specification.NotDeletedPostForSetMonthAndYearDate;
 import com.mszostok.domain.Post;
 import com.mszostok.domain.Tag;
 import com.mszostok.domain.User;
 import com.mszostok.exception.PostException;
-import com.mszostok.model.FullPost;
 import com.mszostok.model.PostCreateForm;
-import com.mszostok.model.TeaserPost;
 import com.mszostok.repository.PostRepository;
-import com.mszostok.repository.TagRepository;
 import com.mszostok.util.CustomConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +39,7 @@ public class PostServiceImpl implements PostService {
     PostRepository postRepository;
 
     @Autowired
-    TagRepository tagRepository;
+    TagService tagService;
 
     @Autowired
     PostArchiveSidebarService postArchiveService;
@@ -61,12 +59,12 @@ public class PostServiceImpl implements PostService {
         List<String> tagsList = Arrays.asList(safeTagsInput.replaceAll("\\s+", "").split(","));
 
         //get tag from table or if not exists create new one
-        return tagsList.stream().map(title -> tagRepository.findOneByTitle(title).orElse(new Tag(title)))
+        return tagsList.stream().map(title -> tagService.getTagByTitle(title).orElse(new Tag(title)))
                 .collect(Collectors.toCollection(HashSet<Tag>::new));
     }
 
     @Override
-    public Page<TeaserPost> getPostsForPage(int pageNumber) {
+    public Page<PostWrapper> getPostsForPage(int pageNumber) {
         /**
          * pageNumber -1 due to page start with 0, but first page number for user will be 1,
          * we sorting by post date with descending direction to get proper order at blog page.
@@ -78,7 +76,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public FullPost getById(Integer postId) {
+    public PostWrapper getById(Integer postId) {
         return CustomConverter.postToFullPost(postRepository.findByIdPost(postId).orElseThrow(() -> new PostException("Could not find post.")));
     }
 
@@ -124,14 +122,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<TeaserPost> getPostByMonthAndYear(Integer month, Integer year) {
+    public List<PostWrapper> getPostByMonthAndYear(Integer month, Integer year) {
 
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.set(year, month - 1, 1);
         Date date = calendar.getTime();
 
         NotDeletedPostForSetMonthAndYearDate notDeletedPostForSetMonthAndYearDate = new NotDeletedPostForSetMonthAndYearDate(date);
-        List<Post> posts = postRepository.findAll(notDeletedPostForSetMonthAndYearDate);
+        List<Post> posts = postRepository.findAll(notDeletedPostForSetMonthAndYearDate, new Sort(Sort.Direction.DESC, "postDate"));
 
         return posts
                 .stream()

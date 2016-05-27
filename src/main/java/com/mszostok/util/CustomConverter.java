@@ -2,14 +2,12 @@ package com.mszostok.util;
 
 import com.mszostok.domain.Post;
 import com.mszostok.domain.UserRole;
-import com.mszostok.model.FullPost;
-import com.mszostok.model.TeaserPost;
+import com.mszostok.model.PostWrapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.BinaryOperator;
 import java.util.function.Function;
 
 /**
@@ -28,13 +26,13 @@ public class CustomConverter {
      * and stream map use Function ( <R> Stream<R> map(Function<? super T, ? extends R> mapper); )
      * but all can apply regular function
      **/
-    public static TeaserPost postToTeaserPost(Post post) {
-        TeaserPost teaserPost = new TeaserPost(post);
+    public static PostWrapper postToTeaserPost(Post post) {
+        PostWrapper teaserPost = new PostWrapper.Builder(post).setTeaserPost(Boolean.TRUE).build();
         return teaserPost;
     }
 
-    public static FullPost postToFullPost(Post post) {
-        FullPost fullPost = new FullPost(post);
+    public static PostWrapper postToFullPost(Post post) {
+        PostWrapper fullPost = new PostWrapper.Builder(post).build();
         return fullPost;
     }
 
