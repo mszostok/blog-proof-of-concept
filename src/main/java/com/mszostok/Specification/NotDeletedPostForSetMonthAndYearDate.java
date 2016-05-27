@@ -1,4 +1,4 @@
-package com.mszostok.Specification;
+package com.mszostok.specification;
 
 import com.mszostok.domain.Post;
 import org.springframework.data.jpa.domain.Specification;

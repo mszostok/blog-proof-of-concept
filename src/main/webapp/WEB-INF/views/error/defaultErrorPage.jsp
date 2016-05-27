@@ -1,7 +1,21 @@
-<div class="col-md-6">
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+<div class="col-md-5 col-md-offset-1">
     <h2>What happened?</h2>
     <p class="lead">
-    ${errorMessage}
+    <div class="alert alert-danger">
+        ${errorMessage}
+    </div>
+    <h3>Search your post by Tag</h3>
+    <form:form action="/post" method="GET">
+        <div class="input-group">
+            <div class="input-group-addon">#</div>
+            <input type="text" class="form-control" name="tag" placeholder="Search for tag...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Search</button>
+                    </span>
+        </div>
+    </form:form>
     </p>
 </div>
 <div class="col-md-6">
