@@ -1,7 +1,10 @@
 <%@ tag %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="t" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="m" uri="menu" %>
+
 <c:set var="baseURL" value="${requestScope['javax.servlet.forward.request_uri']}"/>
 
 <aside class="col-md-2 col-sm-4 col-xs-12 sidebar">
@@ -30,6 +33,17 @@
                 </form>
             </security:authorize>
             <br/>
+            <h3>Search by Tag</h3>
+            <form:form action="/post" method="GET">
+                <div class="input-group">
+                    <div class="input-group-addon">#</div>
+                    <input type="text" class="form-control" name="tag" placeholder="Search for tag...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Search</button>
+                    </span>
+                </div>
+            </form:form>
+            <br/>
             <h3>Archives</h3>
             <ul class="list-group">
                 <c:forEach var="position" items="${archivesList}">
@@ -37,7 +51,7 @@
                                      activeUrlPattern="${baseURL}"/>
                 </c:forEach>
             </ul>
+
         </div>
-    </div>
     </div>
 </aside>
