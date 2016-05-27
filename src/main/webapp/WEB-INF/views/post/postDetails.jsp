@@ -2,21 +2,23 @@
 
 <!-- Post Content -->
 
-    <div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1">
-        <article>
+<div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1">
+    <article>
         <div class="post-heading">
             <h1>${post.title}</h1>
             <span class="meta">Posted by ${post.userFullName} at ${post.postDate}</span>
-        </div>
+            <span class="tags" style="margin-left: 10px; font-size: 15px;">
+                <i class="fa fa-tags" aria-hidden="true"></i>
 
-        <div class="tags">
-            Tags
-            <span class="label label-default">Lorem</span>
-            <span class="label label-default">Ipsum</span>
+                <c:forEach var="tag" items="${post.tags}">
+                    <span class="label label-default">${tag}</span>
+                </c:forEach>
+            </span>
         </div>
-
-        ${post.content}
-        </article>
-    </div>
+        <p>
+            ${post.content}
+        </p>
+    </article>
+</div>
 
 <hr>

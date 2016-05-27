@@ -1,8 +1,8 @@
 <%@ tag %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="m" uri="menu" %>
 <%@ taglib prefix="t" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="m" uri="menu" %>
 
 <c:set var="baseURL" value="${requestScope['javax.servlet.forward.request_uri']}"/>
 

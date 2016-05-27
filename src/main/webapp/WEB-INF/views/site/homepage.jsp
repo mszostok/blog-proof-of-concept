@@ -20,6 +20,13 @@
                 <h2 class="post-title">
                         ${post.title}
                 </h2>
+                <span class="tags" style="margin-left: 10px; font-size: 15px;">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+
+                    <c:forEach var="tag" items="${post.tags}">
+                        <span class="label label-default">${tag}</span>
+                    </c:forEach>
+                </span>
                 <h3 class="post-subtitle">
                         ${post.content}
                 </h3>
