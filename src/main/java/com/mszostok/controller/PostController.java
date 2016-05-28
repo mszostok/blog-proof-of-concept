@@ -10,6 +10,7 @@ import com.mszostok.service.PostArchiveSidebarService;
 import com.mszostok.service.PostService;
 import com.mszostok.service.TagService;
 import com.mszostok.util.CustomConverter;
+import com.mszostok.util.validator.PostCreateFormValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,7 +38,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/post")
 public class PostController {
-    private static final Logger LOGGER = LogManager.getLogger(RootController.class);
+    private static final Logger LOGGER = LogManager.getLogger(PostController.class);
 
     private static final String HOME_PAGE_TEMPLATE = "layouts/siteTemplate";
     private static final String HOME_PAGE_CONTENT = "post/postDetails";
@@ -52,6 +54,14 @@ public class PostController {
 
     @Autowired
     TagService tagService;
+
+    @Autowired
+    PostCreateFormValidator postCreateFormValidator;
+
+    @InitBinder("form")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(postCreateFormValidator);
+    }
 
     /**
      * Get logged user domain object.

@@ -38,14 +38,18 @@
                     </div>
                 </fieldset>
 
-                <div class="form-group">
-                    <label class="col-xs-3 control-label">Tags</label>
-                    <div class="col-xs-8" data-toggle='tooltip' title='Divide by comma' data-placement='bottom' >
+                <fieldset class="form-group">
+                    <label class="control-label">Tags</label>
+                    <div data-toggle='tooltip' title='Divide by comma' data-placement='bottom' >
                         <form:input path="tagsInput" type="text" name="tags" id="tags"
                                     class="form-control ui-widget-content ui-autocomplete-input"  data-role="tagsinput"
                                     />
                     </div>
-                </div>
+                    <div class="has-error">
+                        <form:errors path="tagsInput" cssClass="alert alert-danger" cssStyle="display: block;"/>
+                    </div>
+                </fieldset>
+                <p>* indicates required field</p>
                 <button type="submit" class="btn btn-primary pull-right">Save & Publish</button>
             </div>
         </div>

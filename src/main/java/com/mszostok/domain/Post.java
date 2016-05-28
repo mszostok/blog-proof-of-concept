@@ -136,4 +136,16 @@ public class Post {
     }
 
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "content='" + content + '\'' +
+                ", idPost=" + idPost +
+                ", postDate=" + postDate +
+                ", title='" + title + '\'' +
+                ", isDeleted=" + isDeleted +
+                ", user=" + user +
+                ", tags=" + tags +
+                '}';
+    }
 }

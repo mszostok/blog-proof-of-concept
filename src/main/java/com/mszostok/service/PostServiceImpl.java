@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService {
 
     private static final Logger LOGGER = LogManager.getLogger(PostServiceImpl.class);
 
-    private static final int MAX_PAGE_SIZE = 2;
+    private static final int MAX_PAGE_SIZE = 5;
 
     @Autowired
     PostRepository postRepository;
@@ -56,10 +56,11 @@ public class PostServiceImpl implements PostService {
         String safeTagsInput = Jsoup.parse(tags).text();
 
         //remove all whitespace, create list with comma delimiter
-        List<String> tagsList = Arrays.asList(safeTagsInput.replaceAll("\\s+", "").split(","));
+        LOGGER.info("Clean tags input to avoid XSS.");
+        List<String> tagsList = Arrays.asList(safeTagsInput.split(","));
 
         //get tag from table or if not exists create new one
-        return tagsList.stream().map(title -> tagService.getTagByTitle(title).orElse(new Tag(title)))
+        return tagsList.stream().map(title -> tagService.getTagByTitle(title.trim()).orElse(new Tag(title.trim())))
                 .collect(Collectors.toCollection(HashSet<Tag>::new));
     }
 
