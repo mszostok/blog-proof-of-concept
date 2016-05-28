@@ -60,7 +60,9 @@ public class PostServiceImpl implements PostService {
         List<String> tagsList = Arrays.asList(safeTagsInput.split(","));
 
         //get tag from table or if not exists create new one
-        return tagsList.stream().map(title -> tagService.getTagByTitle(title.trim()).orElse(new Tag(title.trim())))
+        return tagsList.stream()
+                .filter(s -> !s.trim().isEmpty())
+                .map(title -> tagService.getTagByTitle(title.trim()).orElse(new Tag(title.trim())))
                 .collect(Collectors.toCollection(HashSet<Tag>::new));
     }
 

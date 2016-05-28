@@ -43,7 +43,7 @@
 
                         <td>
                             <spring:url value="/post/${btnUrlPrefix}/${post.idPost}" var="actionPostURL"/>
-                            <form role="form" action="${postURL}" method="post">
+                            <form role="form" action="${actionPostURL}" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <button class="btn btn-block btn-xs ${btnStyle}" type="submit">
                                         ${btnName}

@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <fmt:setLocale value="en_US" scope="session"/> <!-- Fix locale due to the fact that other stuff are not translated yet-->
 
@@ -12,13 +13,15 @@
             <span class="meta">Posted on <fmt:formatDate pattern="dd MMMM yyyy" value="${post.postDate}"/>
                 by ${post.userFullName}
             </span>
-            <span class="tags" style="margin-left: 10px; font-size: 15px;">
-                <i class="fa fa-tags" aria-hidden="true"></i>
+            <c:if test="${not empty post.tags}">
+                    <span class="tags" style="margin-left: 10px; font-size: 15px;">
+                        <i class="fa fa-tags" aria-hidden="true"></i>
 
-                <c:forEach var="tag" items="${post.tags}">
-                    <span class="label label-default">${tag}</span>
-                </c:forEach>
-            </span>
+                        <c:forEach var="tag" items="${post.tags}">
+                            <span class="label label-default">${tag}</span>
+                        </c:forEach>
+                    </span>
+            </c:if>
         </div>
         <p>
             ${post.content}

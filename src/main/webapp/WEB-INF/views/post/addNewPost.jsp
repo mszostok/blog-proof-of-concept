@@ -45,7 +45,7 @@
                 </fieldset><!-- end content input -->
 
                 <!-- Tags input only for logged user -->
-                <security:authorize access="isAuthenticated()">
+                <security:authorize access="isAuthenticated()" >
                 <fieldset class="form-group">
                     <label class="control-label">Tags</label>
                     <div data-toggle='tooltip' title='Divide by comma' data-placement='bottom' >

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="t" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="m" uri="menu" %>
+<%@ taglib prefix="menu" uri="menu" %>
 
 <c:set var="baseURL" value="${requestScope['javax.servlet.forward.request_uri']}"/>
 
@@ -53,7 +53,7 @@
             <ul class="list-group">
                 <c:forEach var="position" items="${archivesList}">
                     <c:url var="path" value="${position.archivePageUrl}" />
-                    <m:listGroupItem name="${position.displayName}" path="${path}"
+                    <menu:listGroupItem name="${position.displayName}" path="${path}"
                                      activeUrlPattern="${baseURL}"/>
                 </c:forEach>
             </ul>

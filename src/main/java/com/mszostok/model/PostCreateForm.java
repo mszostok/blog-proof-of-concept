@@ -15,7 +15,7 @@ public class PostCreateForm {
     @NotEmpty(message = "Please fill content field")
     private String content;
 
-    private String tagsInput;
+    private String tagsInput ="";
 
     public String getTagsInput() {
         return tagsInput;

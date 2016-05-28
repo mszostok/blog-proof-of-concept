@@ -43,7 +43,7 @@ $(document).ready(function () {
     $('#tags').tagsInput({
         'interactive':true,
         'defaultText':'Your tags..',
-        'delimiter': [',',';'],   // Or a string with a single delimiter. Ex: ';'
+        'delimiter': [','],   // Or a string with a single delimiter. Ex: ';'
         'removeWithBackspace' : true,
         'placeholderColor' : '#fff'
     });

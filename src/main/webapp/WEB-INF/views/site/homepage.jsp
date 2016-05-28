@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<fmt:setLocale value="en_US" scope="session"/> <!-- Fix locale due to the fact that other stuff are not translated yet-->
+<fmt:setLocale value="en_US"
+               scope="session"/> <!-- Fix locale due to the fact that other stuff are not translated yet-->
 
 <div class="col-md-7 col-sm-8 col-xs-12   col-md-offset-2 col-sm-offset-2 home-page">
 
@@ -18,6 +19,7 @@
     <c:url var="prevUrl" value="/pages/${page.number }"/>
     <c:url var="nextUrl" value="/pages/${page.number + 2}"/> <!--Add two due to page.number start with 0 not 1. -->
     <c:set var="posts" scope="page" value="${page.content}"/>
+    <c:set var="posts" scope="page" value="${page.content}"/>
 
     <!-- Print all posts from page -->
     <c:forEach var="post" items="${posts}">
@@ -26,18 +28,20 @@
                 <h2 class="post-title">
                         ${post.title}
                 </h2>
-                <span class="tags" style="margin-left: 10px; font-size: 15px;">
-                    <i class="fa fa-tags" aria-hidden="true"></i>
+                <c:if test="${not empty post.tags}">
+                    <span class="tags" style="margin-left: 10px; font-size: 15px;">
+                        <i class="fa fa-tags" aria-hidden="true"></i>
 
-                    <c:forEach var="tag" items="${post.tags}">
-                        <span class="label label-default">${tag}</span>
-                    </c:forEach>
-                </span>
+                        <c:forEach var="tag" items="${post.tags}">
+                            <span class="label label-default">${tag}</span>
+                        </c:forEach>
+                    </span>
+                </c:if>
                 <h3 class="post-subtitle">
                         ${post.content}
                 </h3>
             </a>
-            <p class="post-meta">Posted on <fmt:formatDate pattern="dd MMMM yyyy" value="${post.postDate}"  />
+            <p class="post-meta">Posted on <fmt:formatDate pattern="dd MMMM yyyy" value="${post.postDate}"/>
                 by ${post.userFullName}</p>
         </div>
         <hr>
@@ -60,5 +64,5 @@
     </ul>
 </div>
 
-<t:sidebar/>
+<tags:sidebar/>
 
