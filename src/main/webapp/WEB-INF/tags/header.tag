@@ -1,4 +1,5 @@
 <%@ tag %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Page Header -->
@@ -10,7 +11,7 @@
                 <div class="site-heading">
                     <c:choose>
                         <c:when test="${empty headerTitle}">
-                            <h1><a href="<c:url value="/"/>" >Blog Proof of Concept</a> </h1>
+                            <h1><a href="<spring:url value="/"/>" >Blog Proof of Concept</a> </h1>
                         </c:when>
                         <c:otherwise>
                             <h1>${headerTitle}</h1>

@@ -1,5 +1,5 @@
 <%@ tag %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <hr>
 <!-- Footer -->
 <footer>
@@ -42,13 +42,13 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <!-- Custom Theme JavaScript -->
-<script src="<c:url value='/static/js/clean-blog.min.js' />"></script>
+<script src="<spring:url value='/static/js/clean-blog.min.js' />"></script>
 <!--  TinyMCE -->
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
 <!-- Data table plugin -->
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
-<!--  own scrpit -->
-<script src='<c:url value='/static/js/script.js' />'></script>
+<!--  Own script -->
+<script src='<spring:url value='/static/js/script.js' />'></script>
 
 
 </body>

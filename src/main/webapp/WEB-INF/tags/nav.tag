@@ -1,8 +1,8 @@
 <%@ tag %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="t" uri="http://www.springframework.org/tags" %>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid nav-big-font">
@@ -21,14 +21,14 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="<c:url value="/"/>">Home</a>
+                    <a href="<spring:url value="/"/>">Home</a>
                 </li>
                 <li>
-                    <a href="/post/add-form">Add new post</a>
+                    <a href="<spring:url value="/post/add-form"/>">Add new post</a>
                 </li>
+
+                <!-- Add Profile button only to/for Logged in Users  -->
                 <security:authorize access="isAuthenticated()">
-
-
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user"></span>
@@ -68,7 +68,7 @@
                             <security:authorize access="hasAuthority('ADMIN') and isAuthenticated()">
                                 <li class="divider navbar-login-session-bg"></li>
                                 <li>
-                                    <a href="<t:url value='/admin' />" class="button" style="color: black !important;">
+                                    <a href="<spring:url value='/admin' />" class="button" style="color: black !important;">
                                         <i class="fa fa-table" aria-hidden="true"></i> Admin Dashboard
                                     </a>
                                 </li>
@@ -77,17 +77,11 @@
 
                             <li class="divider navbar-login-session-bg"></li>
                             <li>
-                                <form role="form" action="<t:url value='/logout' />" method="post">
-
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <button type="submit">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
-                                    </button>
-                                </form>
+                               <tag:logoutButton />
                             </li>
                         </ul>
                     </li>
-                </security:authorize>
+                </security:authorize> <!-- End button for logged in users -->
             </ul>
         </div>
         <!-- /.navbar-collapse -->

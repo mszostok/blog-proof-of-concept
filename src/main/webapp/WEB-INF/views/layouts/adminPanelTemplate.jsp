@@ -1,12 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="tagsAdmin" tagdir="/WEB-INF/tags/admin" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<t:head />
+<tags:head />
 <tagsAdmin:dashboardSystemInfo />
 
+<!-- Main Content -->
 <main class="container">
     <div class="row">
         <div class="col-md-9 col-sm-8 col-xs-12">
@@ -15,4 +14,5 @@
         <tagsAdmin:adminSidebar />
     </div>
 </main>
-<t:footer />
+
+<tags:footer />

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <fmt:setLocale value="en_US" scope="session"/> <!-- Fix locale due to the fact that other stuff are not translated yet-->
@@ -19,7 +20,7 @@
         <c:otherwise>
             <c:forEach var="post" items="${posts}">
                 <div class="post-preview">
-                    <a href="<c:url value='/post/${post.idPost}/${post.url}'/>">
+                    <a href="<spring:url value='/post/${post.idPost}/${post.url}'/>">
                         <h2 class="post-title">
                                 ${post.title}
                         </h2>

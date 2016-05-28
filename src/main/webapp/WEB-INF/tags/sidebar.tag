@@ -11,6 +11,7 @@
     <div class="row">
         <div class="col-xs-12">
 
+            <!-- Add login form only for not logged in users  -->
             <security:authorize access="isAnonymous()">
                 <form role="form" action="/login" method="post">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -33,6 +34,8 @@
                 </form>
             </security:authorize>
             <br/>
+
+
             <h3>Search by Tag</h3>
             <form:form action="/post" method="GET">
                 <div class="input-group">
@@ -44,10 +47,13 @@
                 </div>
             </form:form>
             <br/>
+
+
             <h3>Archives</h3>
             <ul class="list-group">
                 <c:forEach var="position" items="${archivesList}">
-                    <m:listGroupItem name="${position.displayName}" path="${position.archivePageUrl}"
+                    <c:url var="path" value="${position.archivePageUrl}" />
+                    <m:listGroupItem name="${position.displayName}" path="${path}"
                                      activeUrlPattern="${baseURL}"/>
                 </c:forEach>
             </ul>

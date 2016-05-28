@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <security:authentication property="principal.user.idUser" var="loggedUserId"/>
 
@@ -41,10 +42,11 @@
                         <td><c:out value="${post.eMail}"/></td>
 
                         <td>
-                            <form role="form" action="/user/${btnUrlPrefix}/${post.idUser}" method="post">
+                            <spring:url value="/user/${btnUrlPrefix}/${post.idUser}" var="userActionURL"/>
+                            <form role="form" action="${userActionURL}" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <button class="btn btn-block btn-xs ${btnStyle}" type="submit"
-                                ${post.idUser eq loggedUserId ? "data-toggle='tooltip' title='Cannot modify your self' data-placement='bottom' disabled='true'" : ''}>
+                                    ${post.idUser eq loggedUserId ? "data-toggle='tooltip' title='Cannot modify your self' data-placement='bottom' disabled='true'" : ''}>
                                         ${btnName}
                                 </button>
                             </form>
