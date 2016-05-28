@@ -1,7 +1,8 @@
 <%@ tag %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="t" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
 <nav class="navbar navbar-inverse" >
     <div class="container-fluid">
@@ -57,18 +58,13 @@
                         </li>
                         <li class="divider navbar-login-session-bg"></li>
                         <li>
-                            <a href="<t:url value='/admin' />" class="button">
+                            <a href="<spring:url value='/admin' />" class="button">
                                 <i class="fa fa-table" aria-hidden="true"></i> Admin Dashboard
                             </a>
                         </li>
                         <li class="divider navbar-login-session-bg"></li>
                         <li>
-                            <form role="form" action="<t:url value='/logout' />" method="post">
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
-                                </button>
-                            </form>
+                           <tag:logoutButton />
                         </li>
                     </ul>
                 </li>

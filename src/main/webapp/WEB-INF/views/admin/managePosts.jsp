@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <security:authentication property="principal.user.idUser" var="loggedUserId"/>
 
@@ -37,18 +38,18 @@
                     </c:choose>
                     <tr>
 
-                        <td><fmt:formatDate type="both"
-                                            value="${post.postDate}" /></td>
-                        <td><c:out value="${post.title}"/></td>
+                        <td><fmt:formatDate type="both" value="${post.postDate}"/></td>
+                        <td>${post.title}"</td>
 
                         <td>
-                            <form role="form" action="/post/${btnUrlPrefix}/${post.idPost}" method="post">
+                            <spring:url value="/post/${btnUrlPrefix}/${post.idPost}" var="actionPostURL"/>
+                            <form role="form" action="${postURL}" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn btn-block btn-xs ${btnStyle}" type="submit" >
+                                <button class="btn btn-block btn-xs ${btnStyle}" type="submit">
                                         ${btnName}
                                 </button>
                             </form>
-                            </td>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

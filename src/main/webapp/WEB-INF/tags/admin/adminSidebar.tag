@@ -1,8 +1,10 @@
 <%@ tag %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="t" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="m" uri="menu" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="menu" uri="menu" %>
 
 <c:set var="baseURL" value="${requestScope['javax.servlet.forward.request_uri']}"/>
 
@@ -18,25 +20,21 @@
                         <span class="label label-default">${authority}</span>
                     </c:forEach>
                 </p>
-            </div>
-            <m:listGroupItem icon="fa-table" name="Dashboard" path="/admin"
+            </div> <!-- /.user-welcome-info -->
+
+            <!-- display admin navigation panel -->
+            <menu:listGroupItem icon="fa-table" name="Dashboard" path="/admin"
                              activeUrlPattern="${baseURL}"/>
-            <m:listGroupItem icon="fa-home" name="Home page" path="/"
+            <menu:listGroupItem icon="fa-home" name="Home page" path="/"
                              activeUrlPattern="${baseURL}"/>
-            <m:listGroupItem icon="fa-users" name="Users" path="/admin/manage-users"
+            <menu:listGroupItem icon="fa-users" name="Users" path="/admin/manage-users"
                              activeUrlPattern="${baseURL}"/>
-            <m:listGroupItem icon="fa-sticky-note" name="Posts" path="/admin/manage-posts"
+            <menu:listGroupItem icon="fa-sticky-note" name="Posts" path="/admin/manage-posts"
                              activeUrlPattern="${baseURL}"/>
 
+            <!-- logout button -->
+            <tag:logoutButton />
 
-            <form role="form" action="<t:url value='/logout' />" method="post">
-
-
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button class="list-group-item" type="submit">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
-                </button>
-            </form>
         </div>
     </div>
 </aside>

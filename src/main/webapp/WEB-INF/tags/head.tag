@@ -1,5 +1,5 @@
 <%@ tag %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <!DOCTYPE html>
@@ -14,8 +14,8 @@
 
     <title>Blog POC</title>
 
-    <link href="<c:url value='/static/css/style.css'/>" rel="stylesheet">
-    <link href="<c:url value='/static/css/tagsinput.css'/>" rel="stylesheet">
+    <link href="<spring:url value='/static/css/tagsinput.css'/>" rel="stylesheet">
+    <link href="<spring:url value='/static/css/style.css'/>" rel="stylesheet">
 
 </head>
 
