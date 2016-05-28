@@ -47,8 +47,12 @@
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
 <!-- Data table plugin -->
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+<!-- Tags input -->
+<script src='<c:url value='/static/js/tagsinput.js' />'></script>
 <!--  own scrpit -->
 <script src='<c:url value='/static/js/script.js' />'></script>
+
+
 
 
 </body>

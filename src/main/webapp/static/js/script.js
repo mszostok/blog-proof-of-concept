@@ -39,5 +39,14 @@ $(document).ready(function () {
 
 
     $('[data-toggle="tooltip"]').tooltip();
-
+    
+    $('#tags').tagsInput({
+        'interactive':true,
+        'defaultText':'Your tags..',
+        'delimiter': [',',';'],   // Or a string with a single delimiter. Ex: ';'
+        'removeWithBackspace' : true,
+        'minChars' : 0,
+        'maxChars' : 50, // if not provided there is no limit
+        'placeholderColor' : '#fff'
+    });
 })

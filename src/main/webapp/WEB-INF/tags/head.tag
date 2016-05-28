@@ -15,6 +15,7 @@
     <title>Blog POC</title>
 
     <link href="<c:url value='/static/css/style.css'/>" rel="stylesheet">
+    <link href="<c:url value='/static/css/tagsinput.css'/>" rel="stylesheet">
 
 </head>
 

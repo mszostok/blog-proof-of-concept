@@ -40,13 +40,12 @@
 
                 <div class="form-group">
                     <label class="col-xs-3 control-label">Tags</label>
-                    <div class="col-xs-8">
-                        <form:input path="tagsInput" type="text" name="tags"
-                                    class="form-control" data-role="tagsinput"
-                                    data-toggle='tooltip' title='Divide by comma' data-placement='bottom' />
+                    <div class="col-xs-8" data-toggle='tooltip' title='Divide by comma' data-placement='bottom' >
+                        <form:input path="tagsInput" type="text" name="tags" id="tags"
+                                    class="form-control ui-widget-content ui-autocomplete-input"  data-role="tagsinput"
+                                    />
                     </div>
                 </div>
-
                 <button type="submit" class="btn btn-primary pull-right">Save & Publish</button>
             </div>
         </div>
