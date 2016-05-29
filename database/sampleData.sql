@@ -25,9 +25,9 @@ COMMIT;
 
 /* Generating data for table public.users... */
 INSERT INTO "public"."users"("first_name","last_name","e_mail","password", "is_active")
-VALUES(E'Elżbieta',E'Wojciechowski',E'ela.testowy@test.com',E'$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C',TRUE);
+VALUES(E'Elżbieta',E'Wojciechowski',E'admin@blog.com',E'$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C',TRUE);
 INSERT INTO "public"."users"("first_name","last_name","e_mail","password", "is_active")
-VALUES(E'Ewa',E'Nowak',E'ewa.testowy@test.com',E'$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C',TRUE);
+VALUES(E'Ewa',E'Nowak',E'user1@test.com',E'$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C',TRUE);
 INSERT INTO "public"."users"("first_name","last_name","e_mail","password", "is_active")
 VALUES(E'Zofia',E'Kwiatkowski',E'zafia@test.com',E'$2a$10$ebyC4Z5WtCXXc.HGDc1Yoe6CLFzcntFmfse6/pTj7CeDY5I05w16C',TRUE);
 INSERT INTO "public"."users"("first_name","last_name","e_mail","password", "is_active")
