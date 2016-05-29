@@ -1,15 +1,24 @@
 $(document).ready(function () {
 
-    //TinyMCE init
-    tinymce.init({
+    /**
+     * TinyMCE init
+     */
+    tinyMCE.init({
         selector: '#post-edit-area',
-        plugins: 'advlist autolink link image lists charmap print preview',
+        relative_urls: true,
+        remove_script_host: false,
+        convert_urls: false,
+        fix_list_elements: false,
+        plugins: 'advlist autolink link image lists charmap save print preview',
         a_plugin_option: true,
-        a_configuration_option: 400
+        a_configuration_option: 400,
+        height : "480"
     });
 
 
-    // dataTable init
+    /**
+     * Init Data table jquery plugin
+     */
     var dataTable = $('#data-table').DataTable({
         language: {
             "decimal": "",
@@ -40,11 +49,52 @@ $(document).ready(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
 
+    /**
+     * Init tags input plugin
+     */
     $('#tags').tagsInput({
-        'interactive':true,
-        'defaultText':'Your tags..',
-        'delimiter': [','],   // Or a string with a single delimiter. Ex: ';'
-        'removeWithBackspace' : true,
-        'placeholderColor' : '#fff'
+        'interactive': true,
+        'defaultText': 'Your tags..',
+        'delimiter': [','],
+        'removeWithBackspace': true,
+        'placeholderColor': '#fff'
     });
+
+    /**
+     * Upload the file sending it via Ajax at the Spring Boot server.
+     */
+    $("#upload-file-input").on("change", uploadFile);
 })
+
+/**
+ * Upload the file sending it via Ajax.
+ */
+function uploadFile() {
+    $.ajax({
+        url: "/upload",
+        type: "POST",
+        data: new FormData($("#upload-file-form")[0]),
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (response) {
+            // Handle upload success
+            $("#upload-file-message").text(response.message);
+
+            // Add img url to content
+            tinyMCE.triggerSave();
+            var content = $("#post-edit-area").val();
+            content = content + response.imgUrl;
+
+            // Update content
+            tinyMCE.activeEditor.setContent(content);
+
+        },
+        error: function (xhr, status, error) {
+            // Handle upload error
+            var responseText = jQuery.parseJSON(xhr.responseText);
+            $("#upload-file-message").text(responseText.ex);
+        }
+    });
+}

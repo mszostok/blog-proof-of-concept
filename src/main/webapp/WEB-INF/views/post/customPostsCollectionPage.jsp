@@ -4,7 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<fmt:setLocale value="en_US" scope="session"/> <!-- Fix locale due to the fact that other stuff are not translated yet-->
+<fmt:setLocale value="en_US"
+               scope="session"/> <!-- Fix locale due to the fact that other stuff are not translated yet-->
 
 <div class="col-md-7 col-sm-8 col-xs-12   col-md-offset-2 col-sm-offset-2 home-page">
 
@@ -29,15 +30,17 @@
                                 ${post.content}
                         </h3>
                     </a>
-                    <p class="post-meta">Posted on <fmt:formatDate pattern="dd MMMM yyyy" value="${post.postDate}"  />
+                    <p class="post-meta">Posted on <fmt:formatDate pattern="dd MMMM yyyy" value="${post.postDate}"/>
                         by ${post.userFullName}
-                    <span class="tags" style="margin-left: 10px; font-size: 15px;">
-                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        <c:if test="${not empty post.tags}">
+                            <span class="tags" style="margin-left: 10px; font-size: 15px;">
+                                <i class="fa fa-tags" aria-hidden="true"></i>
 
-                        <c:forEach var="tag" items="${post.tags}">
-                            <span class="label label-default">${tag}</span>
-                        </c:forEach>
-                    </span>
+                                <c:forEach var="tag" items="${post.tags}">
+                                    <span class="label label-default">${tag}</span>
+                                </c:forEach>
+                            </span>
+                        </c:if>
                     </p>
                 </div>
                 <hr>
