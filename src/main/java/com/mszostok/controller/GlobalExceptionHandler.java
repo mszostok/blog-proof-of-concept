@@ -2,10 +2,16 @@ package com.mszostok.controller;
 
 import com.mszostok.exception.PostException;
 import com.mszostok.exception.TagNotFoundException;
+import com.mszostok.model.ErrorInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +39,16 @@ public class GlobalExceptionHandler {
 
         LOGGER.info("Return error view for post exception" );
         return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({FileUploadBase.SizeLimitExceededException.class, MultipartException.class})
+    @ResponseBody ErrorInfo handleSizeUploadLimitException(HttpServletRequest req, Exception ex) {
+
+        LOGGER.error("Request: {} raised {}", req.getRequestURL(), ex);
+
+        LOGGER.info("Return error info json." );
+        return new ErrorInfo(req.getRequestURL().toString(), "File not uploaded (it's too much big)");
     }
 
 
