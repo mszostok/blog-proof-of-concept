@@ -7,6 +7,7 @@
 
 [View Live Demo Site](http://46.101.137.196/ "Blog demo site")
 
+Login information can be found at [Tutorial](http://mszostok.github.io/blog-proof-of-concept/ "Local setup")
 ###Feature:
 + Member login 
 + Administration e.g. delete/restore posts or deactivate/activate registered user
