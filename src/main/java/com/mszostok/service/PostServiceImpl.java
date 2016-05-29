@@ -89,7 +89,7 @@ public class PostServiceImpl implements PostService {
 
         /** Use the jsoup HTML Cleaner with a configuration specified by a Whitelist to avoid XSS */
         LOGGER.info("Clean form content to avoid XSS.");
-        String safeContent = Jsoup.clean(form.getContent(), Whitelist.basicWithImages());
+        String safeContent = Jsoup.clean(form.getContent(), "http://www.com", Whitelist.relaxed().preserveRelativeLinks(true));
 
 
         post.setContent(safeContent);

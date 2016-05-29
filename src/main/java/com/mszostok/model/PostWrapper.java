@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Base for post wrapper model.
+ * Post wrapper model with simply builder to create teaser and full post.
  *
  * @author mszostok
  */
