@@ -5,7 +5,9 @@ import com.mszostok.domain.UserRole;
 import com.mszostok.model.PostWrapper;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -41,4 +43,15 @@ public class CustomConverter {
         LocalDateTime dateTime = LocalDateTime.of(year, month, 1, 1, 1);
         return dateTime.format(formatter);
     }
+
+    public static Function<YearMonth, String> getPathFromYearMonth
+            = yearMonth -> {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .parseCaseInsensitive()
+                .appendPattern("yyyy/MM/")
+                .toFormatter(Locale.ENGLISH);
+        return yearMonth.format(formatter);
+    };
+
+
 }
