@@ -7,7 +7,7 @@
 <form role="form" action="${logoutURL}" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-    <button type="submit">
+    <button class="list-group-item" type="submit" >
         <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
     </button>
 </form>

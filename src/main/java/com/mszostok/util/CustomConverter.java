@@ -48,7 +48,7 @@ public class CustomConverter {
             = yearMonth -> {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .parseCaseInsensitive()
-                .appendPattern("yyyy/MM/")
+                .appendPattern("/yyyy/MM/")
                 .toFormatter(Locale.ENGLISH);
         return yearMonth.format(formatter);
     };
