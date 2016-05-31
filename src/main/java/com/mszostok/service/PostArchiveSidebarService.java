@@ -11,7 +11,4 @@ public interface PostArchiveSidebarService {
 
      List<PostArchiveSidebarPosition> getArchiveList();
 
-     Boolean getUpdate();
-
-     void setUpdate(Boolean update);
 }

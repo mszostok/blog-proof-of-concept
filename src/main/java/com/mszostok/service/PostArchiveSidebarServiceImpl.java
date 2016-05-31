@@ -34,13 +34,10 @@ public class PostArchiveSidebarServiceImpl  implements PostArchiveSidebarService
 
     private Set<String> monthsAndYears;
 
-    private Boolean update;
-
     @Autowired
     PostRepository postRepository;
 
     public PostArchiveSidebarServiceImpl() {
-        update = true;
         postArchiveSidebarPositions = new LinkedList<>();
     }
 
@@ -77,18 +74,8 @@ public class PostArchiveSidebarServiceImpl  implements PostArchiveSidebarService
     }
 
     public List<PostArchiveSidebarPosition> getArchiveList() {
-        if (update) {
             updateArchiveList();
-            update = false;
-        }
         return postArchiveSidebarPositions;
     }
 
-    public Boolean getUpdate() {
-        return update;
-    }
-
-    public void setUpdate(Boolean update) {
-        this.update = update;
-    }
 }
