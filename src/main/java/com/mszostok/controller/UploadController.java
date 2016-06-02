@@ -47,7 +47,9 @@ public class UploadController {
             String filename = UUID.randomUUID().toString() + ".jpg";
 
             LOGGER.info("Check if uploaded file is a image.");
-            ImageIO.read(input);
+            if(ImageIO.read(input) == null) {
+                throw new IOException("Uploaded file is not a image");
+            }
 
             String directoryDateSuffix = CustomConverter.getPathFromYearMonth.apply(YearMonth.now());
             Path directoryName = Paths.get(UPLOAD_LOCATION + directoryDateSuffix);

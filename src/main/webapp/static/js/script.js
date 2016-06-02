@@ -93,8 +93,13 @@ function uploadFile() {
         },
         error: function (xhr, status, error) {
             // Handle upload error
-            var responseText = jQuery.parseJSON(xhr.responseText);
-            $("#upload-file-message").text(responseText.ex);
+            var message ="File upload failed.";
+            if(xhr.responseText !== undefined) {
+                var responseText = jQuery.parseJSON(xhr.responseText);
+                 message = responseText.ex;
+            }
+
+            $("#upload-file-message").text(message);
         }
     });
 }
