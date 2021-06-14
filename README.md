@@ -1,14 +1,13 @@
-<img src="https://zeroc.com/images/logos/languages/java-b48c6193e3.svg" width="48">
-<img src="http://jhipster.github.io/img/icons/spring-boot.png" width="48">
-<img src="http://fruzenshtein.com/wp-content/uploads/2013/04/Spring-Security-logo.png" width="48">
-<img src="http://getbootstrap.com/apple-touch-icon.png" width="48">
+> **NOTE:** This project was created for internship program. It's not developed not maintained.
 
 #  Blog as Proof of Concept
 
 [View Live Demo Site](http://46.101.137.196/ "Blog demo site")
 
 Login information can be found at [Tutorial](http://mszostok.github.io/blog-proof-of-concept/ "Local setup")
-###Feature:
+
+### Features
+
 + Member login 
 + Administration e.g. delete/restore posts or deactivate/activate registered user
 + Defining new blog notes with title, content and for logged user also with tags and uploading images
@@ -43,4 +42,5 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ```
+
 #### Copyright (C) 2016 Mateusz Szostok
